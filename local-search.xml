@@ -4,11 +4,11 @@
   
   
   <entry>
-    <title>Test post</title>
-    <link href="/2025/03/18/Test-post/"/>
-    <url>/2025/03/18/Test-post/</url>
+    <title>Wi-Fi Backscatter communication</title>
+    <link href="/2025/03/18/Wi-Fi%20Backscatter%20communication/"/>
+    <url>/2025/03/18/Wi-Fi%20Backscatter%20communication/</url>
     
-    <content type="html"><![CDATA[]]></content>
+    <content type="html"><![CDATA[<h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><hr><p>This article is about a new way of communication for edge IoT devices. Aims at transmitting information of sensors without consuming energy or even store energy for sensing environment.<br>It is a great method to deal with situation which may encounter some problems like short-energy.</p>]]></content>
     
     
     
