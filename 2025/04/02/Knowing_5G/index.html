@@ -19,23 +19,24 @@
   <meta name="author" content="Karina">
   <meta name="keywords" content="">
   
-    <meta name="description" content="AbstractThis article is about a new way of communication for edge IoT devices. Aims at transmitting information of sensors without consuming energy or even store energy for sensing environment. It is">
+    <meta name="description" content="什么是无线通信你在你的手机微信上编辑了一段文字，轻点发送，远在天边的亲朋好友便能够几乎瞬时的接收到你讯息，这固然很好。但是你是否想象过，这个传输的过程是如何实现的？可能你知道，手机向手机基站发送信息，然后基站之间再进行传输，最后由基站向手机对面的人发送消息。那么，现在请你抬头，看看你周围，你是否生活在“盘丝洞”之中。我相信正常的答案是否的（如果你说yes，那你很厉害哟），这就是我们所说的无线通信。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Wi-Fi Backscatter communication">
-<meta property="og:url" content="http://example.com/2025/03/18/Wi-Fi%20Backscatter%20communication/index.html">
+<meta property="og:title" content="初识无线通信——5G 信道估计">
+<meta property="og:url" content="http://example.com/2025/04/02/Knowing_5G/index.html">
 <meta property="og:site_name" content="Katarina&#39;s daily record">
-<meta property="og:description" content="AbstractThis article is about a new way of communication for edge IoT devices. Aims at transmitting information of sensors without consuming energy or even store energy for sensing environment. It is">
+<meta property="og:description" content="什么是无线通信你在你的手机微信上编辑了一段文字，轻点发送，远在天边的亲朋好友便能够几乎瞬时的接收到你讯息，这固然很好。但是你是否想象过，这个传输的过程是如何实现的？可能你知道，手机向手机基站发送信息，然后基站之间再进行传输，最后由基站向手机对面的人发送消息。那么，现在请你抬头，看看你周围，你是否生活在“盘丝洞”之中。我相信正常的答案是否的（如果你说yes，那你很厉害哟），这就是我们所说的无线通信。">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2025-03-18T06:08:02.000Z">
-<meta property="article:modified_time" content="2025-03-26T09:02:14.860Z">
+<meta property="article:published_time" content="2025-04-01T16:17:00.000Z">
+<meta property="article:modified_time" content="2025-04-01T16:53:36.675Z">
 <meta property="article:author" content="Karina">
+<meta property="article:tag" content="5G Channel state infomation(CSI)">
 <meta name="twitter:card" content="summary_large_image">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>Wi-Fi Backscatter communication - Katarina&#39;s daily record</title>
+  <title>初识无线通信——5G 信道估计 - Katarina&#39;s daily record</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -201,7 +202,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Wi-Fi Backscatter communication"></span>
+            <span id="subtitle" data-typed-text="初识无线通信——5G 信道估计"></span>
           
         </div>
 
@@ -212,8 +213,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-03-18 14:08" pubdate>
-          March 18, 2025 pm
+        <time datetime="2025-04-02 00:17" pubdate>
+          April 2, 2025 am
         </time>
       </span>
     
@@ -224,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          65 words
+          1.1k words
         
       </span>
     
@@ -235,7 +236,7 @@
         
         
         
-          1 mins
+          15 mins
         
       </span>
     
@@ -281,12 +282,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Wi-Fi Backscatter communication</h1>
+            <h1 id="seo-header">初识无线通信——5G 信道估计</h1>
             
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    Last updated on March 26, 2025 pm
+                    Last updated on April 2, 2025 am
                   
                 
               </p>
@@ -294,19 +295,15 @@
             
               <div class="markdown-body">
                 
-                <h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>This article is about a new way of communication for edge IoT devices. Aims at transmitting information of sensors without consuming energy or even store energy for sensing environment.</p>
-<p>It is a great method to deal with situation which may encounter some problems like short-energy.</p>
-<p>We realise this method based on 802.11.ac frame structure, using a mcu controling RFID switch to change the resist value, which cause the changing in phase of the Wi-Fi packets.</p>
-<p>The <strong>180 degrees</strong> inversion in phase of Wi-Fi packets will destroy the mac frame of signal transmitted in Los(Line of sight) as superimposed by the inversed Wi-Fi packets, which cause the <strong>0 bits</strong> in ACK block.</p>
-<p>So we can get the information that we modulated onto the Wi-Fi packets without transmitting it by decoding the ACK blocks. That is the main concept of what we do.</p>
-<h2 id="Introduction-of-environment"><a href="#Introduction-of-environment" class="headerlink" title="Introduction of environment"></a>Introduction of environment</h2><p>In this section I will briefly give a introduction of the hardware requirement, software requirement and the system environment which we based on.</p>
-<ul>
-<li>Firstly, we setup ubuntu 22.04 version in real PC because one of the software we used requires real NIC(Network Interface Card).</li>
-<li>Secondly, we need a low-speed, high-frequency RFID switch which also required low power consuming. Together with a mini-mcu to control it, which means you need a energy provided method.</li>
-<li>thirdly, you may need wireshark to get packets info at initial, then you need PicoScenes as CSI Tool to get ACK block. Also you need pktgen which is provided by Linux kernel.</li>
-</ul>
-<h2 id="Process-of-experiment"><a href="#Process-of-experiment" class="headerlink" title="Process of experiment"></a>Process of experiment</h2><p>Let’s start from equiping your computer with necessary software. First thing is that you need an PC with a Ubuntu system at version 22.04. Then after your configuration of basic settings, you can start from ‘Pktgen’ which is already in your system software and all you need to do is activate it using your root privacy. The detail of the overall process please follow the blog: <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41596356/article/details/134004341">How to use Pktgen-powerful Wlan test tools</a>. Notice: once you reboot your system, you need to activate the Pktgen using root privacy again.</p>
-<p>Pktgen, used as packet genration and transmission tool, you can send packet which you configure. You then need a software to receive packet and evaluate the infomation of signal-channel through the packet you received. Here I recommend using wireshark to capture packet, and using PicoScenes to get CSI. The installation steps as followed.<br>For Wireshark, you can visit its <a target="_blank" rel="noopener" href="https://github.com/wireshark/wireshark">github repository</a> and paste the command at your terminal. The second one PicoScenes, you can download it following this <a target="_blank" rel="noopener" href="https://www.bing.com/search?form=QBLH&q=PicoScenes">blog</a>, or visit the <a target="_blank" rel="noopener" href="https://ps.zpj.io/">official docs</a> to get to know how to install, how to use it and what is the meaning of CSI values.</p>
+                <h1 id="什么是无线通信"><a href="#什么是无线通信" class="headerlink" title="什么是无线通信"></a>什么是无线通信</h1><p>你在你的手机微信上编辑了一段文字，轻点发送，远在天边的亲朋好友便能够几乎瞬时的接收到你讯息，这固然很好。但是你是否想象过，这个传输的过程是如何实现的？可能你知道，手机向手机基站发送信息，然后基站之间再进行传输，最后由基站向手机对面的人发送消息。那么，现在请你抬头，看看你周围，你是否生活在“盘丝洞”之中。我相信正常的答案是否的（如果你说yes，那你很厉害哟），这就是我们所说的无线通信。这是一个堪称伟大的科技手段，要是信号都只能通过光纤、信号线传输，那我们就真的生活在盘丝洞之中了（!_!）我们现在常用的移动设备像手机、电脑、电视这些，都配备有天线，在基站安装这几十上百的天线构成阵列来接受我们向他发送的信息（后面统称为信号）。</p>
+<p>那你可能会说，就这？你一根天线、我一根天线就能解决的事情，能称得上伟大？当然不是这么简单，你在生活中不难发现，向前推一辆车，过一会他就会自己停下来；向前说话，声音却像是从前面传来。这些说明两点：</p>
+<ol>
+<li>日常生活中存在阻力，或者说衰减，空中传递的信号也不例外会受到衰减，导致从手机到基站的信号的质量往往不如手机端刚发出。</li>
+<li>信号不是像一根线一样固定一个方向传播，而是像声波一样向四周扩散的传播，碰到物体也会反射。现实生活中的反射物更加多，这导致你发出的信号在传播过程中会变成2个、4个、8个甚至更多，这些信号传输到基站就会产生诸多问题，比如哪个信号才是你手机发出的？不同信号之间的到达时间还不同，可能导致通信的延迟。</li>
+</ol>
+<p>无论是上面信号的衰减还是反射导致多径（后续称反射导致的多个信号为多径）都会造成信号延时、信号错乱或者丢包的现象。这也就引起科学家们对无线信号传输的介质（后续我们称为信道）的研究热情，也就是我们所说的信道估计。</p>
+<h1 id="什么是信道估计（CSI）"><a href="#什么是信道估计（CSI）" class="headerlink" title="什么是信道估计（CSI）"></a>什么是信道估计（CSI）</h1><p>我在上面通过一种举例子的方式带你简要的理解了一下什么是无线通信以及我们为什么要做信道估计，下面我从学术一点的角度上解释什么是信道估计、为什么需要信道估计，以及信道估计有什么用（作者也是初学者，仅作为参考以及补充）？信道估计，顾名思义是对信道参数进行的一种估计。由于信道的不确定性，我们通常采用统计的角度对信道的一些影响信号传输的参数进行估计，比如衰减、时延等等。那我们为什么需要信道估计？我还是举例进行说明，假设一个用户向基站传输10个信号，每个信号经历完全相同的信道（也就是说信道对信号的影响完全一样），如果我不做信道估计，那基站每接收一个信号都要对这个信号进行一个信道影响的消除，这对于基站这种大吞吐量的应用场景显然不合理。如果基站对第一个信号做信道估计，知道了信道对信号的冲激响应是幅度衰减为1&#x2F;2、相位延后10，那么后续的9个信号基站可以直接给一个2倍的增益，然后将相位提前10以此消除信道的干扰，如此就节省了资源又提高了效率。</p>
+<p>后续科学家们通过对信道估计得到的参数进行研究，推出了许多的算法，发现可以通过CSI得到信号从发出到达基站的时间、信号到基站使被接收的角度等，由此衍生了CSI得出信道响应用于定位用户的功能等（作者还在学，目前就会这些o.O）</p>
 
                 
               </div>
@@ -315,6 +312,34 @@
             <div>
               <div class="post-metas my-3">
   
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/5G-%E9%80%9A%E6%84%9F/" class="category-chain-item">5G 通感</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/5G-Channel-state-infomation-CSI/" class="print-no-link">#5G Channel state infomation(CSI)</a>
+      
+    </div>
   
 </div>
 
@@ -324,8 +349,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Wi-Fi Backscatter communication</div>
-      <div>http://example.com/2025/03/18/Wi-Fi Backscatter communication/</div>
+      <div>初识无线通信——5G 信道估计</div>
+      <div>http://example.com/2025/04/02/Knowing_5G/</div>
     </div>
     <div class="license-meta">
       
@@ -337,7 +362,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>March 18, 2025</div>
+          <div>April 2, 2025</div>
         </div>
       
       
@@ -369,18 +394,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/04/02/Knowing_5G/" title="初识无线通信——5G 信道估计">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">初识无线通信——5G 信道估计</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/03/18/hello-world/" title="Hello World">
-                        <span class="hidden-mobile">Hello World</span>
+                      <a href="/2025/03/18/Wi-Fi%20Backscatter%20communication/" title="Wi-Fi Backscatter communication">
+                        <span class="hidden-mobile">Wi-Fi Backscatter communication</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
