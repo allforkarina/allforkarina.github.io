@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>阅读札记——“5G信道的估计与均衡”</title>
+    <link href="/2025/04/02/Channel-state-info/"/>
+    <url>/2025/04/02/Channel-state-info/</url>
+    
+    <content type="html"><![CDATA[<h1 id="5G通信信道估计"><a href="#5G通信信道估计" class="headerlink" title="5G通信信道估计"></a>5G通信信道估计</h1><h2 id="一、MIMO——OFDM技术简介"><a href="#一、MIMO——OFDM技术简介" class="headerlink" title="一、MIMO——OFDM技术简介"></a>一、MIMO——OFDM技术简介</h2><h3 id="MIMO："><a href="#MIMO：" class="headerlink" title="MIMO："></a>MIMO：</h3><p>多输入-多输出，即大规模天线阵列用于发送以及接收。</p><p>用基站端天线数量的扩展代替基站数量的扩展。</p><p>减少基站数量意味着多径效应的削弱，有利于减少小尺度衰减对信号传输的影响。</p><h3 id="OFDM："><a href="#OFDM：" class="headerlink" title="OFDM："></a>OFDM：</h3><p>在传统的频分传输基础上，进一步节省频带资源，实现正交频分调制。</p><h2 id="虽然OFDM各个子载波存在有频谱交叠的部分，但是由于是正交的，接收端仍能够解调信号并且可以高效的利用频谱。"><a href="#虽然OFDM各个子载波存在有频谱交叠的部分，但是由于是正交的，接收端仍能够解调信号并且可以高效的利用频谱。" class="headerlink" title="虽然OFDM各个子载波存在有频谱交叠的部分，但是由于是正交的，接收端仍能够解调信号并且可以高效的利用频谱。"></a>虽然OFDM各个子载波存在有频谱交叠的部分，但是由于是正交的，接收端仍能够解调信号并且可以高效的利用频谱。</h2><p>MIMO在空间域上节省资源；OFDM调制在频域上节省资源。</p><h2 id="二、mMIMO——Massive-MIMO"><a href="#二、mMIMO——Massive-MIMO" class="headerlink" title="二、mMIMO——Massive MIMO"></a>二、mMIMO——Massive MIMO</h2><h3 id="MIMO的信道增益"><a href="#MIMO的信道增益" class="headerlink" title="MIMO的信道增益"></a>MIMO的信道增益</h3><p>多用户大规模MIMO，面向于多个用户接入，单个基站端配备有几十上百跟天线：</p><div align=center>![MIMO and UE](\img\5G-Channel-state-info\image.png)<p>每个用户端只有一根天线，基站端配备有多根天线与用户相匹配。其中，第m根天线接收到来自第K个用户的信号Im,K在信道中的增益等于：</p><div align=center>![signal amp](\img\5G-Channel-state-info\Amp1.png)<p>大尺度的衰减与小尺度的衰减相乘得到。其中，小尺度的衰减系数受天线的影响最大，可以认为是多个用户导致的用户间串扰（IUI-interUser interference）对于有M根天线阵列的基站来说，每根天线接收到K个用户传来的信号，将这M × K的信号组成矩阵，对应每个信号的信道增益就构成了信道矩阵。</p><div align=center>![Channel Matrix](\img\5G-Channel-state-info\H_Matrix.png)<p>这也是CSI最终我们要得到的参数（矩阵）。</p><h3 id="MIMO的信道分析"><a href="#MIMO的信道分析" class="headerlink" title="MIMO的信道分析"></a>MIMO的信道分析</h3><p>已知不同信道、不同信号的信道估计增益都不一样，这取决于大尺度衰弱叠加上小尺度干扰；因此为了增强信号的信噪比以及削弱用户间的干扰，我们可以采用最大合并比以及最大比发送实现，具体的思想就是根据CSI估计的信道衰减反馈在接收端或者发送端添加一个增益，以追求所有天线的信噪比之和最大。通常不同天线的增益满足：</p><div align=center>![MRC](\img\5G-Channel-state-info\MRC.png)]]></content>
+    
+    
+    <categories>
+      
+      <category>5G, 通感</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>5G, Channel state infomation(CSI)</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>初识无线通信——5G 信道估计</title>
     <link href="/2025/04/02/Knowing_5G/"/>
     <url>/2025/04/02/Knowing_5G/</url>
