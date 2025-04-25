@@ -19,27 +19,32 @@
   <meta name="author" content="Karina">
   <meta name="keywords" content="">
   
-    <meta name="description" content="AbstractThis article is about a new way of communication for edge IoT devices. Aims at transmitting information of sensors without consuming energy or even store energy for sensing environment. It is">
+    <meta name="description" content="概述5G-NR，具有⾼速、低延迟的特性，是现代通信强有⼒的技术之一。又因广泛的基站建设，5G逐渐覆盖日常生活中的每个角落，随着覆盖范围的扩张，不仅意味着越来越稳定的通信，感知，更是随之不断的发展。 下⾯，本文将针对无人机向5G基站通信这一应用场景，尝试通过仿真验证利用无人机与5G基站的通信能够实现利用 CSI 解算出无人机的位置信息，如 AOA、AOD、ToF 等参数，验证 MUSIC 算法的可行">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Wi-Fi Backscatter communication">
-<meta property="og:url" content="http://example.com/2025/03/18/Wi-Fi%20Backscatter%20communication/index.html">
+<meta property="og:title" content="基于5G通信的定位感知——AOA解算">
+<meta property="og:url" content="http://example.com/2025/04/24/AOA_Positioning/index.html">
 <meta property="og:site_name" content="Katarina&#39;s daily record">
-<meta property="og:description" content="AbstractThis article is about a new way of communication for edge IoT devices. Aims at transmitting information of sensors without consuming energy or even store energy for sensing environment. It is">
+<meta property="og:description" content="概述5G-NR，具有⾼速、低延迟的特性，是现代通信强有⼒的技术之一。又因广泛的基站建设，5G逐渐覆盖日常生活中的每个角落，随着覆盖范围的扩张，不仅意味着越来越稳定的通信，感知，更是随之不断的发展。 下⾯，本文将针对无人机向5G基站通信这一应用场景，尝试通过仿真验证利用无人机与5G基站的通信能够实现利用 CSI 解算出无人机的位置信息，如 AOA、AOD、ToF 等参数，验证 MUSIC 算法的可行">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://github.com/allforkarina/embadded_image/blob/master/20250406065801171.png?raw=true">
-<meta property="og:image" content="https://github.com/allforkarina/embadded_image/blob/master/20250406065807770.png?raw=true">
-<meta property="og:image" content="https://github.com/allforkarina/embadded_image/blob/master/20250406065816107.png?raw=true">
-<meta property="article:published_time" content="2025-03-18T06:08:02.000Z">
-<meta property="article:modified_time" content="2025-04-05T23:12:39.349Z">
+<meta property="og:image" content="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/20250425123140384.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/20250425123346494.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/20250425123744616.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/20250425123355885.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/20250425123406300.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/20250425123415468.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/20250425123421082.png">
+<meta property="article:published_time" content="2025-04-24T13:00:00.000Z">
+<meta property="article:modified_time" content="2025-04-25T04:41:12.780Z">
 <meta property="article:author" content="Karina">
+<meta property="article:tag" content="5G 通感">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://github.com/allforkarina/embadded_image/blob/master/20250406065801171.png?raw=true">
+<meta name="twitter:image" content="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/20250425123140384.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>Wi-Fi Backscatter communication - Katarina&#39;s daily record</title>
+  <title>基于5G通信的定位感知——AOA解算 - Katarina&#39;s daily record</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -205,7 +210,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Wi-Fi Backscatter communication"></span>
+            <span id="subtitle" data-typed-text="基于5G通信的定位感知——AOA解算"></span>
           
         </div>
 
@@ -216,8 +221,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-03-18 14:08" pubdate>
-          March 18, 2025 pm
+        <time datetime="2025-04-24 21:00" pubdate>
+          April 24, 2025 pm
         </time>
       </span>
     
@@ -228,7 +233,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.3k words
+          1.8k words
         
       </span>
     
@@ -239,7 +244,7 @@
         
         
         
-          17 mins
+          23 mins
         
       </span>
     
@@ -285,12 +290,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Wi-Fi Backscatter communication</h1>
+            <h1 id="seo-header">基于5G通信的定位感知——AOA解算</h1>
             
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    Last updated on April 6, 2025 am
+                    Last updated on April 25, 2025 pm
                   
                 
               </p>
@@ -298,38 +303,34 @@
             
               <div class="markdown-body">
                 
-                <h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>This article is about a new way of communication for edge IoT devices. Aims at transmitting information of sensors without consuming energy or even store energy for sensing environment.</p>
-<p>It is a great method to deal with situation which may encounter some problems like short-energy.</p>
-<p>We realise this method based on 802.11.ac frame structure, using a mcu controling RFID switch to change the resist value, which cause the changing in phase of the Wi-Fi packets.</p>
-<p>The <strong>180 degrees</strong> inversion in phase of Wi-Fi packets will destroy the mac frame of signal transmitted in Los(Line of sight) as superimposed by the inversed Wi-Fi packets, which cause the <strong>0 bits</strong> in ACK block.</p>
-<p>So we can get the information that we modulated onto the Wi-Fi packets without transmitting it by decoding the ACK blocks. That is the main concept of what we do.</p>
-<h2 id="什么是WiFi反向散射系统（WiFi-BackScatter-Communication-System）"><a href="#什么是WiFi反向散射系统（WiFi-BackScatter-Communication-System）" class="headerlink" title="什么是WiFi反向散射系统（WiFi BackScatter Communication System）"></a>什么是WiFi反向散射系统（WiFi BackScatter Communication System）</h2><p>直观点说，Backscatter 通信是一种极低功耗通信方式，设备不用主动“发射信号”，而是通过反射已有的无线信号（比如WiFi）来传递数据。基本原理是假设空气中已经存在一个无线信号（比如 WiFi 路由器发出的信号），背散射设备（比如标签）不自己发射信号，而是通过调节天线的阻抗，选择性地反射或不反射这些信号。接收端设备（比如智能手机）检测这些变化，从中恢复出数据。</p>
-<p>可以理解为有人一直在用手电筒（WiFi 信号）照一个镜子，这个镜子（WiFi Tag）可以控制自己是反光还是吸光（反射或不反射信号），你站在另一边看，就能根据“亮”或“不亮”来解码信息。这样的通信方式可以实现超低功耗（甚至可以完全无电池），完全适配物联网（IoT）设备、RFID 标签等。</p>
-<h2 id="如何理解WiFi-Backscatter所谓的破坏"><a href="#如何理解WiFi-Backscatter所谓的破坏" class="headerlink" title="如何理解WiFi Backscatter所谓的破坏"></a>如何理解WiFi Backscatter所谓的破坏</h2><ol>
-<li><p>理解WiFi Tag的工作方式我们就需要先知道WiFi是怎么传输数据的。我们都知道数据在电脑中是呈现为0101这样的二进制比特流的，每8个bit构成一个字节。而WiFi将至少一个字节包装成一个子帧（subFrame），Tag就是以子帧为基本单位实现破坏的功能的（也就是说破坏很多个bit）。已知我们手机（UE）向路由器发送数据，如果路由器成功接收了那么就会回应UE一个BA（Block ACK）。如果接收到了，在BA对应的帧位置上会显示为1.假设我们原本要传输一共10个子帧，如果AP（例如路由器）全部都接收到了，那么在Wireshark（一个抓包软件）上就会显示BA对应位置有10个1（1表示成功接收）。</p>
+                <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p><em><strong>5G-NR</strong></em>，具有⾼速、低延迟的特性，是现代通信强有⼒的技术之一。又因广泛的基站建设，5G逐渐覆盖日常生活中的每个角落，随着覆盖范围的扩张，不仅意味着越来越稳定的通信，感知，更是随之不断的发展。</p>
+<p>下⾯，本文将针对无人机向5G基站通信这一应用场景，尝试通过仿真验证利用无人机与5G基站的通信能够实现利用 <em><strong>CSI</strong></em> 解算出无人机的位置信息，如 <em><strong>AOA、AOD、ToF</strong></em> 等参数，验证 <em><strong>MUSIC</strong></em> 算法的可行性。下面是对如何通过通信的 <em><strong>CSI</strong></em> 实现对位置信息感知的理论描述。</p>
+<h1 id="理论篇"><a href="#理论篇" class="headerlink" title="理论篇"></a>理论篇</h1><h2 id="信号在发送端天线的传播特性"><a href="#信号在发送端天线的传播特性" class="headerlink" title="信号在发送端天线的传播特性"></a>信号在发送端天线的传播特性</h2><p>发送端（无人机）仅考虑单根天线进行收发，且天线是全向极化天线。信号由无人机发出，向四面八方发送信号，这些信号在Tx天线处发出时对应的角度我们称为 <em><strong>AOD（Angle of Departure）</strong></em>。在 <em><strong>Tx</strong></em> 处的AOD有很多不同的值，我们近似认为范围为 <em><strong>[0, 2*pi]</strong></em>。</p>
+<p><img src="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/20250425123140384.png" srcset="/img/loading.gif" lazyload alt="无人机发送天线"></p>
+<p>由于发送端 —&gt; 接收端的距离很远，信号在信道中传输之后在到达5G基站的天线阵列时，我们近似认为这些信号可以被视为平⾏波。</p>
+<h2 id="接收端天线阵列接收信号"><a href="#接收端天线阵列接收信号" class="headerlink" title="接收端天线阵列接收信号"></a>接收端天线阵列接收信号</h2><p>由于信号在信道中传递有多径特性，其中某⼀个单径上的信号在到达天线阵列时可以被视为⼀组平⾏波。</p>
+<p><img src="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/20250425123346494.png" srcset="/img/loading.gif" lazyload alt="接收天线阵列"></p>
+<p>下面我们仅考虑某一个单径上的信号，这个信号以一组平行波的形式被接收端的天线阵列接收。作⼀条垂直于平⾏波的虚线，我们可以近似认为它与这一组平⾏波的交点所对应的信号相位相同，即这个虚线是一个等相线。由上图可⻅相邻两根天线之间信号传播距离相差 <em><strong>L</strong></em>，又因为波⻓与相应间存在某种关系，我们可以理解为，传播的距离差 <em><strong>L</strong></em> 等价于信号到达天线的相位差 <em><strong>φ</strong></em>。因此可以说,相邻两概天线在同时接收到的信号之间差⼀个恒定的 <em><strong>φ</strong></em> 。以另⼀个⻆度上说，同时接收 <em><strong>N</strong></em> 个天线上的信号且相邻信号之间差⼀个 <em><strong>φ</strong></em>，那么我们可以压缩天线，我只对第⼀根天线接收的信号采样，采样间隔 <em><strong>t &#x3D; L&#x2F;c &#x3D; φ&#x2F;f</strong></em> （ <em><strong>c</strong></em> 是光速，<em><strong>f</strong></em> 是信号的频率）。</p>
+<p>以第⼀根天线接收的信号为基准定义为 <em><strong>S0 &#x3D; exp(j*2*pi*d*cosx)</strong></em>,如此其余天线接收的信号就能够定义为 <em><strong>Sk &#x3D; exp(j*2*pi*k*d*cosx) &#x3D; （exp(j*2*pi*d*cosx)）^k</strong></em> 等等，第k根天线的信号是第一根天线的k次方，又因为第k根天线相较于第一根天线有 <em><strong>k * d</strong></em> 的距离差，表现在信号上有k次方的关系，于是我们认为，第k根天线相较于第一根天线有 <em><strong>φ^k</strong></em> 的相位延迟。若我们定义第一根天线没有延迟，那么我们就可以写出第一条单径对应信号的导向矢量</p>
+<p><img src="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/20250425123744616.png" srcset="/img/loading.gif" lazyload alt="导向矢量"></p>
+<p>又因为多径，不同AOA的信号同时到达接收天线阵列，彼此叠加。所以我们在天线处采样得到的信号，是K个不同AOA路径信号的叠加。我们多次进行采样，一共采样 <em><strong>M</strong></em> 次就可以得到 <em><strong>MxN</strong></em> 的导向矩阵。</p>
+<p>又因为每个列向量（导向矢量）的元素之间是成指数递增的关系，因此根据矩阵论的相关知识，该导向矩阵是满秩的。</p>
+<h2 id="AOA解算"><a href="#AOA解算" class="headerlink" title="AOA解算"></a>AOA解算</h2><p>这里我们假设一共有一根 <em><strong>Tx</strong></em> ，3根 <em><strong>Rx</strong></em>，这里我们考虑两条多径（一条直射、一条反射）。</p>
+<p><img src="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/20250425123355885.png" srcset="/img/loading.gif" lazyload alt="多径模型"></p>
+<p>对天线上接收的信号进行采样，每一次采样计算出来的导向矢量是由两条路径对应不同的导向矢量叠加得到。我们多次进行采样，这些采样得到的所有导向矢量构成一个导向矩阵，该导向矩阵一定是满秩的。</p>
+<p>每一个导向矢量，xyz三个坐标，对应在一个三维空间中的一个位置，采样了 <em><strong>m</strong></em> 次，则一共有 <em><strong>m</strong></em> 个三维空间中的矢量，每一个矢量又是由两条路径对应的导向矢量通过平行四边形法则叠加得到。两条路径的导向矢量不同是因为不同路径到达接收天线阵列的AOA不同，因此导向矢量也不同。我们可以假设，如果有无数条路径，这些路径对应的AOA也不同，意味着有无数条不同的导向矢量，这些导向矢量的末端连起来必然是一个封闭的空间曲线（因为AOA有界）。</p>
+<p><img src="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/20250425123406300.png" srcset="/img/loading.gif" lazyload alt="空间封闭曲线"></p>
+<p>已知每一个导向矢量对应一个AOA，导向矢量的模长受到对应信道时变衰落的影响，因此每一个导向矢量是对应方向延长线上的点。由于不同AOA的信号在天线处叠加，采样得到的导向矢量对应在空间中是不同AOA导向矢量的加权（信道衰落）和。</p>
+<p>如果每次采样的信号是由两个多径信号叠加，那么采样信号的导向矢量就是这两个多径信号的导向矢量加权和。又两个向量可以张成一个二维的平面（子空间），我们称这个子空间为 <strong>信号子空间</strong>。</p>
+<p><img src="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/20250425123415468.png" srcset="/img/loading.gif" lazyload alt="信号子空间"></p>
+<p>假设你的信道中没有噪声，那么我们可以推断出，无论采样多少次，每次采样的信号对应的导向矢量一定属于这个信号子空间。<em><strong>n</strong></em> 条路径 <em><strong>m</strong></em> 根接收天线对应的信号子空间维数为 <em><strong>R_min &#x3D; min(n, m)</strong></em>。因为信号子空间的维数一定小于或者等于整个导向矢量的空间维数，因此一定可以找到一个垂直于信号子空间的基，这个基对应的空间我们称为 <strong>噪声子空间</strong>。如果你的信道中有噪声，你的导向矢量在空间中表现为在垂直信号子空间的方向上有一定的偏移</p>
+<p><img src="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/20250425123421082.png" srcset="/img/loading.gif" lazyload alt="正交噪声子空间"></p>
+<h2 id="实际解算过程"><a href="#实际解算过程" class="headerlink" title="实际解算过程"></a>实际解算过程</h2><ol>
+<li><p>同时对 <em><strong>N</strong></em> 个天线阵元采样得第⼀个导向矢量；多次采样得 <em><strong>M</strong></em> 个导向矢量；每一个导向矢量是来自 <em><strong>K</strong></em> 个路径的信号叠加（每个路径的AOA不同）。</p>
 </li>
-<li><p>有的人想你把用户发出的数据破坏了，那用户不就丢包了吗？这时候，我们就要理解多径。信号在空气中不是只沿一条直线传播的，而是在一定范围的角度范围内都有的，这也导致了多径的产生。假设我们现在发出的信号只有两条路径</p>
+<li><p>得到导向矢量矩阵 <em><strong>A &#x3D; [P_1, P_2, …, P_n]</strong></em> ，矩阵的形状为 <em><strong>M x N</strong></em> 且一定是满秩的，信号子空间为维度为天线阵元数量与多径数量中的较小值。假设信号子空间为 <em><strong>K</strong></em> 维，导向矢量的空间维度为 <em><strong>N</strong></em> 维，对导向矢量矩阵做特征值分解，能够得到 <em><strong>N</strong></em> 个特征矢量，其中 <em><strong>K</strong></em> 个构成了信号子空间，也对应着 <em><strong>K</strong></em> 个多径各自的 <em><strong>AOA</strong></em>。</p>
 </li>
 </ol>
-<p><img src="https://github.com/allforkarina/embadded_image/blob/master/20250406065801171.png?raw=true" srcset="/img/loading.gif" lazyload alt="Multiple Path"></p>
-<p>其中从Helper到Reader的路径是最短的直线（称为LOS）。另一条路径的信号可能由于外界环境的反射（跟声波一样），路径长度更长，使得信号到达Reader时相比于LOS有一个时延，而这个时延就会导致信号的相位发生改变（改变180°就相当于反向）。</p>
-<ol start="3">
-<li>那么我们如何实现这个相位反向呢，靠运气等环境自己使信号相位改变吗？下面我们就要讲硬件实现思路。我们都知道信号波长与频率之间的关系：</li>
-</ol>
-<p><img src="https://github.com/allforkarina/embadded_image/blob/master/20250406065807770.png?raw=true" srcset="/img/loading.gif" lazyload alt="Multiple Path"></p>
-<p>一般频率我们已知，那么我们也就能够算出来信号的波长。一个波长从公式的角度等价于一个完整周期，等价于一个360°的相位偏移，那么我们可以设计一个标签我们的Tag在信号的传输路径中间，用一个开关切换路径，一共两条，一条路径长度是一个完整波长，那么信号通过Tag的天线进入标签再出来经过了一个完整的周期，可以认为相位不变；另一条路径的长度是半个波长，同理信号进入Tag再出来相位改变了180°，与原来的信号反向。相当于我们人为的将多径的长度差变成了一个波长。</p>
-<h2 id="WiFi-Tag调制的具体实现流程"><a href="#WiFi-Tag调制的具体实现流程" class="headerlink" title="WiFi Tag调制的具体实现流程"></a>WiFi Tag调制的具体实现流程</h2><p>假设我们的手机和WiFi路由器在进行数据交换，在一种理想的情况下我们的信号质量很好，没有丢包的情况。我们在中间加入WiFi Backscatter Tag，并且以10KHz的频率去切换开关。假设我们手机网卡发送子帧的速率也是10K个子帧每秒，那么我们可以假设在LOS（即前面说的直射路径）中传输的信号（调制了10K个子帧）的相位都是0°（相对的）。然后在有WiFi Tag的另一条路径，信号调制的10K个子帧有5K个相位为360°，有5K个相位为180°。相位为360°的跟LOS的信号叠加在一起由于同相，对原来的信号起到增强的作用，接收端全是1（参考基础知识1）而相位为180°的跟LOS的信号反向，叠加到一起刚好相互抵消了，那么接收端就是全0（理想情况）。那么我们就可以通过这个0、1之间的交替得出我们WiFi Tag要调制的信号，如下：</p>
-<p><img src="https://github.com/allforkarina/embadded_image/blob/master/20250406065816107.png?raw=true" srcset="/img/loading.gif" lazyload alt="Multiple Path"></p>
-<hr>
-<p>以下是，我们如何通过软件实现对上述流程的仿真以及体现。</p>
-<h2 id="Introduction-of-environment"><a href="#Introduction-of-environment" class="headerlink" title="Introduction of environment"></a>Introduction of environment</h2><p>In this section I will briefly give a introduction of the hardware requirement, software requirement and the system environment which we based on.</p>
-<ul>
-<li>Firstly, we setup ubuntu 22.04 version in real PC because one of the software we used requires real NIC(Network Interface Card).</li>
-<li>Secondly, we need a low-speed, high-frequency RFID switch which also required low power consuming. Together with a mini-mcu to control it, which means you need a energy provided method.</li>
-<li>thirdly, you may need wireshark to get packets info at initial, then you need PicoScenes as CSI Tool to get ACK block. Also you need pktgen which is provided by Linux kernel.</li>
-</ul>
-<h2 id="Process-of-experiment"><a href="#Process-of-experiment" class="headerlink" title="Process of experiment"></a>Process of experiment</h2><p>Let’s start from equiping your computer with necessary software. First thing is that you need an PC with a Ubuntu system at version 22.04. Then after your configuration of basic settings, you can start from ‘Pktgen’ which is already in your system software and all you need to do is activate it using your root privacy. The detail of the overall process please follow the blog: <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41596356/article/details/134004341">How to use Pktgen-powerful Wlan test tools</a>. Notice: once you reboot your system, you need to activate the Pktgen using root privacy again.</p>
-<p>Pktgen, used as packet genration and transmission tool, you can send packet which you configure. You then need a software to receive packet and evaluate the infomation of signal-channel through the packet you received. Here I recommend using wireshark to capture packet, and using PicoScenes to get CSI. The installation steps as followed.<br>For Wireshark, you can visit its <a target="_blank" rel="noopener" href="https://github.com/wireshark/wireshark">github repository</a> and paste the command at your terminal. The second one PicoScenes, you can download it following this <a target="_blank" rel="noopener" href="https://www.bing.com/search?form=QBLH&q=PicoScenes">blog</a>, or visit the <a target="_blank" rel="noopener" href="https://ps.zpj.io/">official docs</a> to get to know how to install, how to use it and what is the meaning of CSI values.</p>
 
                 
               </div>
@@ -338,6 +339,34 @@
             <div>
               <div class="post-metas my-3">
   
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Algorithm/" class="category-chain-item">Algorithm</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/5G-%E9%80%9A%E6%84%9F/" class="print-no-link">#5G 通感</a>
+      
+    </div>
   
 </div>
 
@@ -347,8 +376,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Wi-Fi Backscatter communication</div>
-      <div>http://example.com/2025/03/18/Wi-Fi Backscatter communication/</div>
+      <div>基于5G通信的定位感知——AOA解算</div>
+      <div>http://example.com/2025/04/24/AOA_Positioning/</div>
     </div>
     <div class="license-meta">
       
@@ -360,7 +389,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>March 18, 2025</div>
+          <div>April 24, 2025</div>
         </div>
       
       
@@ -392,18 +421,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/04/02/Knowing_5G/" title="初识无线通信——5G 信道估计">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">初识无线通信——5G 信道估计</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/03/18/hello-world/" title="关于博客的那些事o.O">
-                        <span class="hidden-mobile">关于博客的那些事o.O</span>
+                      <a href="/2025/04/02/Channel-state-info/" title="阅读札记——“5G信道的估计与均衡”">
+                        <span class="hidden-mobile">阅读札记——“5G信道的估计与均衡”</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
