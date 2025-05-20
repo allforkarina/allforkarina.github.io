@@ -1,0 +1,738 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.png">
+  <link rel="icon" href="/img/avatar.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Karina">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="引言在信号处理领域，参数估计是实现目标识别与定位的核心技术之一。经典论文《ESPRIT: Estimation of Signal Parameters via Rotational Invariance Techniques》提出了基于旋转不变性的超分辨率参数估计算法，而《Multiple Emitter Location and Signal Parameter Estimation》则进一步">
+<meta property="og:type" content="article">
+<meta property="og:title" content="3D建模下的参数估计">
+<meta property="og:url" content="http://example.com/2025/05/20/3D_Positioning_estimation/index.html">
+<meta property="og:site_name" content="Katarina&#39;s daily record">
+<meta property="og:description" content="引言在信号处理领域，参数估计是实现目标识别与定位的核心技术之一。经典论文《ESPRIT: Estimation of Signal Parameters via Rotational Invariance Techniques》提出了基于旋转不变性的超分辨率参数估计算法，而《Multiple Emitter Location and Signal Parameter Estimation》则进一步">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/20250520101247882.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/20250520134601234.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/20250520135243124.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/20250520140147302.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/20250520144154490.png">
+<meta property="article:published_time" content="2025-05-20T01:35:00.000Z">
+<meta property="article:modified_time" content="2025-05-20T06:44:13.935Z">
+<meta property="article:author" content="Karina">
+<meta property="article:tag" content="5G 通感">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/20250520101247882.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>3D建模下的参数估计 - Katarina&#39;s daily record</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":60,"cursorChar":"_","loop":true,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>(♥ ω ♥) Karina</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/desktop.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="3D建模下的参数估计"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-05-20 09:35" pubdate>
+          May 20, 2025 am
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.5k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          44 mins
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> views
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">3D建模下的参数估计</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    Last updated on May 20, 2025 pm
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>在信号处理领域，参数估计是实现目标识别与定位的核心技术之一。经典论文《ESPRIT: Estimation of Signal Parameters via Rotational Invariance Techniques》提出了基于旋转不变性的超分辨率参数估计算法，而《Multiple Emitter Location and Signal Parameter Estimation》则进一步拓展了多信号源定位的理论框架。本文结合原始思想与最新改进算法，探讨3D建模下的参数估计方法。</p>
+<hr>
+<h2 id="ESPRIT算法核心思想"><a href="#ESPRIT算法核心思想" class="headerlink" title="ESPRIT算法核心思想"></a>ESPRIT算法核心思想</h2><h3 id="旋转不变性原理"><a href="#旋转不变性原理" class="headerlink" title="旋转不变性原理"></a>旋转不变性原理</h3><p>ESPRIT算法的核心在于利用信号子空间的旋转不变性[[4]]。通过构建两个存在位移关系的传感器阵列，其接收信号满足：<br>$$<br>\mathbf{X}_2 &#x3D; \mathbf{X}_1 \mathbf{\Phi}<br>$$<br>其中 $\mathbf{\Phi}$ 为包含信号到达角（DOA）信息的对角矩阵。通过对信号子空间进行奇异值分解（SVD），可直接从矩阵 $\mathbf{\Phi}$ 中提取信号参数[[4]]。</p>
+<h3 id="子空间分解"><a href="#子空间分解" class="headerlink" title="子空间分解"></a>子空间分解</h3><p>原始ESPRIT通过以下步骤实现参数估计：</p>
+<ol>
+<li>构造阵列协方差矩阵并进行特征值分解；</li>
+<li>分离信号子空间与噪声子空间；</li>
+<li>利用子阵列间的平移关系求解旋转矩阵 $\mathbf{\Psi}$；</li>
+<li>通过特征分解获得信号的波达方向（DOA）[[4]]。</li>
+</ol>
+<hr>
+<h2 id="MUSIC算法核心思想"><a href="#MUSIC算法核心思想" class="headerlink" title="MUSIC算法核心思想"></a>MUSIC算法核心思想</h2><h3 id="核心思想"><a href="#核心思想" class="headerlink" title="核心思想"></a>核心思想</h3><ol>
+<li><p><strong>信号子空间与噪声子空间分离</strong><br>论文提出利用协方差矩阵特征值分解，将信号空间划分为信号子空间（由大特征值对应特征向量张成）和噪声子空间（由小特征值对应特征向量张成）。两者正交的特性成为参数估计的关键 [[2]][[9]]。</p>
+</li>
+<li><p><strong>空间谱搜索</strong><br>通过构建如下MUSIC谱函数实现信号源定位：<br>$$<br>P_{\text{MUSIC}}(\theta) &#x3D; \frac{1}{\mathbf{a}(\theta)^H \mathbf{E}_n \mathbf{E}_n^H \mathbf{a}(\theta)}<br>$$<br>其中 $\mathbf{E}_n$ 为噪声子空间，$\mathbf{a}(\theta)$ 为阵列流形向量。当 $\theta$ 扫描到真实信号方向时，分母趋近于零，谱峰位置即对应信号源方向 [[3]][[9]]。</p>
+</li>
+</ol>
+<hr>
+<h2 id="扩展到三维空间下的估计"><a href="#扩展到三维空间下的估计" class="headerlink" title="扩展到三维空间下的估计"></a>扩展到三维空间下的估计</h2><p>随着5G通感一体化和智能感知的发展，实际应用中对三维空间（方位角、俯仰角、距离等）参数的高精度估计提出了更高要求。传统MUSIC和ESPRIT算法主要针对二维（如仅估计方位角），而三维场景下需要对信号的多个空间参数进行联合估计。</p>
+<h3 id="三维ESPRIT算法"><a href="#三维ESPRIT算法" class="headerlink" title="三维ESPRIT算法"></a>三维ESPRIT算法</h3><p>三维ESPRIT算法需要平面或者立体的天线阵列流形，这里我们以平面阵列流形为例，且相邻的天线之间的间距相等，即均匀平面天线（UPA）；</p>
+<p><img src="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/20250520101247882.png" srcset="/img/loading.gif" lazyload alt="UPA"></p>
+<p>通过将信号的波达角分解为水平的方位角以及垂直的俯仰角，可以将信号到达不同天线的路程差通过天线间距$d$、方位角$\phi$以及俯仰角$\theta$联合表示：</p>
+<p>$$<br>\Delta \lambda_{m,n} &#x3D; d \left[ (m-1)\sin\theta\cos\phi + (n-1)\sin\theta\sin\phi \right]<br>$$</p>
+<p>由于天线之间的间隔以及波达角导致的信号到达天线阵列所经历的时间不同，意味着信号到达不同天线的相位也不一样。由于是均匀分布的天线，我们可以推测，相邻天线之间的相位差是一个定值，因此可以通过选择天线对，然后由ESPRIT的算法得到旋转不变性，从而计算得到两个参数：$\sin\theta\cos\phi$ 以及 $\sin\theta\sin\phi$，之后便可以轻松的计算出我们需要的方位角$\phi$以及俯仰角$\theta$。</p>
+<h3 id="三维ESPRIT算法的难点"><a href="#三维ESPRIT算法的难点" class="headerlink" title="三维ESPRIT算法的难点"></a>三维ESPRIT算法的难点</h3><p>这里的难点在于，对接收到的信号做信道估计以及信道补偿一系列操作后得到的信道响应是所有天线阵列接收信道的叠加，从信道响应的形状上来说已经没有了天线阵列的形状信息，<strong>如何将信道响应$H$重新塑形</strong>则是一大难题。</p>
+<p>对于如何获得信道响应，从感知的角度而言，将不同参数对应的导向矢量做克罗内克积便得到了信道响应：</p>
+<p>$$<br>H &#x3D; a_{aoa} \otimes a_{zoa}<br>$$</p>
+<p>这里的$\otimes$代表克罗内克积（kronecker product），$a_{x}$表示为某个参数的导向矢量。这里得到的是理想信道响应，可以添加加性高斯白噪声以模仿实际的信道响应。</p>
+<h3 id="三维ESPRIT算法的具体实现"><a href="#三维ESPRIT算法的具体实现" class="headerlink" title="三维ESPRIT算法的具体实现"></a>三维ESPRIT算法的具体实现</h3><p>联合导向矢量的定义可以用x方向天线的导向矢量与y方向天线的导向矢量做克罗内克积得到</p>
+<p>$$ A &#x3D; A_{x} \otimes A_{y} $$</p>
+<p>也可以通过直接的定义得到</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 构建二维阵列响应</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">steering_vector_2d</span>(<span class="hljs-params">az_deg, el_deg</span>):<br>    <span class="hljs-comment">#^ 角度值转弧度制</span><br>    az = np.radians(az_deg) <span class="hljs-comment"># 方位角</span><br>    el = np.radians(el_deg) <span class="hljs-comment"># 俯仰角</span><br>    kx = np.sin(el) * np.cos(az)<br>    ky = np.sin(el) * np.sin(az)<br>    a = np.zeros((Mx, My), dtype=<span class="hljs-built_in">complex</span>)<br>    <span class="hljs-keyword">for</span> m <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(Mx):<br>        <span class="hljs-keyword">for</span> n <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(My):<br>            a[m, n] = np.exp(-<span class="hljs-number">1j</span> * <span class="hljs-number">2</span> * np.pi * (dx * m * kx + dy * n * ky) / wavelength)<br>    <span class="hljs-keyword">return</span> a.flatten()<br></code></pre></td></tr></table></figure>
+
+<p>接收信号矩阵可以具体表现为</p>
+<p>$$ X &#x3D; AS + N $$</p>
+<p>其中的$A_{M, K}$为接收矩阵的阵列响应，$S_{K, snapshots}$为$N$个信号源在接收天线的采样值，$N_{M, snapshots}$为噪声。</p>
+<p>对接收信号直接做SVD，可以得到接收信号的协方差矩阵以及信号子空间和噪声子空间的基</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 协方差矩阵估计与SVD分解</span><br>R = X @ X.conj().T / snapshots  <span class="hljs-comment">#^ [M, M]的协方差矩阵</span><br>U, _, _ = svd(R)<br>Us = U[:, :K]                   <span class="hljs-comment">#^ [M, K]的信号子空间矩阵</span><br></code></pre></td></tr></table></figure>
+
+<p>其中特征向量的选择取决于信号源的个数，且形状为<strong>天线数X信号源数</strong>,对每一个特征向量进行重新塑形，具体思想为选择前$row - 1$天线阵元的响应和后$row - 1$天线阵元的响应，通过ESPRIT算法可以得到相位偏差，对应于x轴方向天线阵元之间的相位偏移$\sin\theta\cos\phi$。同理选择前$col - 1$天线阵元的响应和后$col - 1$天线阵元的响应可以计算出y轴方向天线阵元之间的相位偏移$\sin\theta\sin\phi$，从而得到波达角。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 构造移位子阵列索引</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">shift_indices</span>(<span class="hljs-params">dim_x, dim_y, axis</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    函数作用: 先构建一个dim_x * dim_y的二维矩阵 索引从(0, 0)到(dim_x-1, dim_y-1)</span><br><span class="hljs-string"></span><br><span class="hljs-string">    如果传入axis=0 则将行进行删除操作 然后按照行的顺序 顺次存取为一个一维的index 如0、1、2、...或者6、7、8、...</span><br><span class="hljs-string">    如果传入axis=1 则将列进行删除操作 然后按照行的顺序 顺次存取为一个一维的index 如0、1、2、3、4、6、...或者1、2、3、4、5、7、...</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-keyword">if</span> axis == <span class="hljs-number">0</span>:  <span class="hljs-comment"># x 方向（垂直方向）移位</span><br>        rows = np.arange(dim_x - <span class="hljs-number">1</span>)<br>        idx1 = np.ravel_multi_index(np.meshgrid(rows, np.arange(dim_y), indexing=<span class="hljs-string">&#x27;ij&#x27;</span>), (dim_x, dim_y))<br>        idx2 = np.ravel_multi_index(np.meshgrid(rows + <span class="hljs-number">1</span>, np.arange(dim_y), indexing=<span class="hljs-string">&#x27;ij&#x27;</span>), (dim_x, dim_y))<br>    <span class="hljs-keyword">elif</span> axis == <span class="hljs-number">1</span>:  <span class="hljs-comment"># y 方向（水平方向）移位</span><br>        cols = np.arange(dim_y - <span class="hljs-number">1</span>)<br>        idx1 = np.ravel_multi_index(np.meshgrid(np.arange(dim_x), cols, indexing=<span class="hljs-string">&#x27;ij&#x27;</span>), (dim_x, dim_y))<br>        idx2 = np.ravel_multi_index(np.meshgrid(np.arange(dim_x), cols + <span class="hljs-number">1</span>, indexing=<span class="hljs-string">&#x27;ij&#x27;</span>), (dim_x, dim_y))<br>    <span class="hljs-keyword">return</span> idx1.flatten(), idx2.flatten()<br><br><span class="hljs-comment"># 获取两个方向的子阵列</span><br>Ux1_idx, Ux2_idx = shift_indices(Mx, My, axis=<span class="hljs-number">0</span>)<br>Uy1_idx, Uy2_idx = shift_indices(Mx, My, axis=<span class="hljs-number">1</span>)<br><br>Ux1 = Us[Ux1_idx, :]<br>Ux2 = Us[Ux2_idx, :]<br>Uy1 = Us[Uy1_idx, :]<br>Uy2 = Us[Uy2_idx, :]<br><br><span class="hljs-comment"># 分别计算x方向和y方向的Psi矩阵</span><br>Psi_x = pinv(Ux1) @ Ux2<br>Psi_y = pinv(Uy1) @ Uy2<br><br><span class="hljs-comment"># 求解特征值并估计方向余弦</span><br>eigvals_x, _ = eig(Psi_x)<br>eigvals_y, _ = eig(Psi_y)<br><br>angles_x = np.angle(eigvals_x)<br>angles_y = np.angle(eigvals_y)<br><br>kx_est = angles_x * wavelength / (<span class="hljs-number">2</span> * np.pi * dx)<br>ky_est = angles_y * wavelength / (<span class="hljs-number">2</span> * np.pi * dy)<br></code></pre></td></tr></table></figure>
+
+<p>代码中定义的函数<code>shift_indices</code>中根据接收天线的形状定义每根天线的索引，x方向和y方向上分别取子阵列的阵元索引，具体可以看函数的解析。再通过索引选取特征向量中的元素，通过ESPRIT的算法便可以得到不同方向上天线阵元之间的信号相位差，再由相位差便可以轻松的得到波达角。</p>
+<h3 id="三维MUSIC算法"><a href="#三维MUSIC算法" class="headerlink" title="三维MUSIC算法"></a>三维MUSIC算法</h3><p>三维MUSIC算法通常基于三维阵列（如平面阵列或立体阵列），其核心思想与二维类似，但需要构造三维空间的阵列流形向量 $\mathbf{a}(\theta, \phi, r)$，并在三维参数空间内进行谱峰搜索：</p>
+<p>$$<br>P_{\text{MUSIC}}(\theta, \phi, r) &#x3D; \frac{1}{\mathbf{a}(\theta, \phi, r)^H \mathbf{E}_n \mathbf{E}_n^H \mathbf{a}(\theta, \phi, r)}<br>$$</p>
+<p>其中，$\theta$ 为方位角，$\phi$ 为俯仰角，$r$ 可为距离或极化等参数。通过在三维参数空间内搜索谱峰，实现对信号源空间位置的精确估计。该方法分辨率高，但计算量大，常需结合降维或并行计算优化。</p>
+<h3 id="互素阵列流形——降维MUSIC算法"><a href="#互素阵列流形——降维MUSIC算法" class="headerlink" title="互素阵列流形——降维MUSIC算法"></a>互素阵列流形——降维MUSIC算法</h3><p>均匀平面阵列(Uniform Planar Array, UPA)  是一种经典模型,其相邻阵元间距均为半波长,该  模型在3维信源定位时精度较高,但在阵列口径较  大时,较高的结构复杂度限制了该模型的应用。为  了实现低复杂度的3维信源精确定位,本文提出  CLACS-SPA结构,其主要特征是将一列互素线阵  (Coprime Linear Array, CLA)沿着与之垂直的方  向按照相同的互素规律进行平移而得到 [[5]]。</p>
+<p><img src="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/20250520134601234.png" srcset="/img/loading.gif" lazyload alt="互素面阵"></p>
+<p>图中左图$ULA1$为间隔为$a$的均匀线阵，$ULA2$为间隔为$b$的均匀线阵，将两个线阵拼接在一起且间隔互为素数则得到了互素线阵；有图中将这样的互素线阵在垂直的方向上拼接就得到了互素面阵。</p>
+<p>对于这样的互素面阵，信源到不同天线之间相位差可以如下面这样表示：</p>
+<p><img src="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/20250520135243124.png" srcset="/img/loading.gif" lazyload alt="相位差计算"></p>
+<p>分别从x轴方向和y轴方向计算相邻两个天线之间的信源波程差可以得到</p>
+<p>$$<br>\begin{align}<br>\Delta_{x,k} &amp;&#x3D; \sqrt{r^2 + l_{x,k}^2 - 2l_{x,k}r \sin\varphi \cos\theta} - r \tag{2} \<br>\Delta_{y,k} &amp;&#x3D; \sqrt{r^2 + l_{y,k}^2 - 2l_{y,k}r \sin\varphi \sin\theta} - r \tag{3}<br>\end{align}<br>$$</p>
+<p>有前面我们可以清楚的知道，波程差一定程度上等价于相位差，而波程差又取决于波达角以及距离（飞行时间）。所以，相位差是由三维参数共同决定的，这也就是说通过MUSIC算法遍历三维空间计算量十分庞大，那么有没有什么办法减少计算呢？</p>
+<p><img src="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/20250520140147302.png" srcset="/img/loading.gif" lazyload alt="泰勒展开降维"></p>
+<p>上述式子展示了将x或者y方向的波程差通过泰勒公式展开，对高阶项直接舍去便得到了<br>$\gamma_x &#x3D; -\frac{2\pi \sin\varphi \cos\theta}{\lambda}, \quad<br>\phi_x &#x3D; \pi \left(1 - \frac{\sin^2\varphi \cos^2\theta}{\lambda r}\right); \quad$</p>
+<p>其中的$\gamma_x$只跟波达角有关，在求出波达角后$\phi_x$就只跟距离有关，如此便将一个三维的搜索转换为二维的搜索<strong>加上</strong>一维的搜索，大大降低了计算复杂度。</p>
+<h3 id="互素阵列流形MUSIC算法具体实现"><a href="#互素阵列流形MUSIC算法具体实现" class="headerlink" title="互素阵列流形MUSIC算法具体实现"></a>互素阵列流形MUSIC算法具体实现</h3><p>首先是根据泰勒展开后的第一项构建搜索导向矢量$\hat{A}_{x}$，在一定的角度范围内遍历$\theta, \phi$并计算谱值</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 泰勒近似方向导向项构造函数</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">xi</span>(<span class="hljs-params">l, gamma</span>):<br>    <span class="hljs-keyword">return</span> np.exp(<span class="hljs-number">1j</span> * gamma * l)<br><br><span class="hljs-comment">#^ 第一阶段：二维角度搜索 泰勒展开后的零次项作为预测的导向矢量估计ZOA、AOA</span><br><span class="hljs-keyword">for</span> i, phi <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(phi_scan):<br>    <span class="hljs-keyword">for</span> j, theta <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(theta_scan):<br>        <span class="hljs-comment">#^ 泰勒展开的零次项</span><br>        gamma_x = -k * np.sin(phi) * np.cos(theta)<br>        gamma_y = -k * np.sin(phi) * np.sin(theta)<br>        <br>        xi_x = xi(Lx, gamma_x)  <span class="hljs-comment">#^ [9, 1] 横向的天线响应</span><br>        xi_y = xi(Ly, gamma_y)  <span class="hljs-comment">#^ [9, 1] 纵向的天线响应</span><br>        xi_xy = np.kron(xi_x, xi_y).reshape(-<span class="hljs-number">1</span>, <span class="hljs-number">1</span>)          <span class="hljs-comment">#^ [81, 1] 降维后x方向的导向搜索矢量</span><br>        <br>        <span class="hljs-comment">#^ 遍历角度 构建导向矢量 计算与噪声子空间的距离 </span><br>        psi = xi_xy.conj().T @ Un @ Un.conj().T @ xi_xy     <br>        Pmap[i, j] = <span class="hljs-number">1</span> / np.real(psi)                       <span class="hljs-comment">#^ 计算谱值 1/psi 最大值为波达角</span><br><br></code></pre></td></tr></table></figure>
+
+<p>找到最大的谱值对应的波达角，将波达角带入到第二项中，就变成了距离$r$的单一求解，构建搜索导向矢量并在给定的范围内搜索谱值的最大值，具体如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">upsilon</span>(<span class="hljs-params">l, phi_term</span>):<br>    <span class="hljs-keyword">return</span> np.exp(<span class="hljs-number">1j</span> * phi_term * l**<span class="hljs-number">2</span>)<br><br><span class="hljs-comment">#^ 泰勒展开的一次项 带入估计的波达角</span><br><span class="hljs-keyword">for</span> r <span class="hljs-keyword">in</span> r_scan:<br>    phi_x = np.pi / (lam * r) * (<span class="hljs-number">1</span> - np.sin(phi_est)**<span class="hljs-number">2</span> * np.cos(theta_est)**<span class="hljs-number">2</span>)<br>    phi_y = np.pi / (lam * r) * (<span class="hljs-number">1</span> - np.sin(phi_est)**<span class="hljs-number">2</span> * np.sin(theta_est)**<span class="hljs-number">2</span>)<br>    <br>    upsilon_x = upsilon(Lx, phi_x)<br>    upsilon_y = upsilon(Ly, phi_y)<br>    upsilon_xy = np.kron(upsilon_x, upsilon_y).reshape(-<span class="hljs-number">1</span>, <span class="hljs-number">1</span>)<br>    <br>    <span class="hljs-comment"># 需要带上零次项进行估计</span><br>    xi_x = xi(Lx, -<span class="hljs-number">2</span> * np.pi / lam * np.sin(phi_est) * np.cos(theta_est))<br>    xi_y = xi(Ly, -<span class="hljs-number">2</span> * np.pi / lam * np.sin(phi_est) * np.sin(theta_est))<br>    xi_xy = np.kron(xi_x, xi_y).reshape(-<span class="hljs-number">1</span>, <span class="hljs-number">1</span>)<br>    <br>    <span class="hljs-comment"># 指数相乘等于相位相加 对应泰勒展开的项</span><br>    A_est = xi_xy * upsilon_xy<br>    pseudospectrum = <span class="hljs-number">1</span> / np.real((A_est.conj().T @ Un @ Un.conj().T @ A_est))<br>    P_r.append(pseudospectrum[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>])<br></code></pre></td></tr></table></figure>
+
+<p>最后便可以在保持高精度的前提下简化计算复杂度提高速度</p>
+<p><img src="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/20250520144154490.png" srcset="/img/loading.gif" lazyload alt="参数估计"></p>
+<hr>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>从最初的经典ESPRIT和MUSIC算法，到近年来面向三维建模和5G通感一体化的多维参数估计算法，参数估计技术正不断向高精度、高分辨率和强鲁棒性方向演进。随着阵列结构的创新（如互素阵、稀疏阵列）和信号处理手段的提升（如空间平滑、极化信息融合、降维搜索等），改进算法不仅在低信噪比、强干扰等复杂环境下展现出更优的性能，还显著降低了计算复杂度，提升了实时性和工程可用性。这些进步为5G通感一体化、智能感知、无人系统等前沿应用提供了坚实的技术基础和广阔的发展空间[[1]][[2]][[4]]。</p>
+<blockquote>
+<p>参考资料：<br>[[1]] 基于改进3D-ESPRIT的GTD模型参数估计<br>[[2]] 三维GTD模型参数估计的改进算法<br>[[3]] CN111781573A 专利文档<br>[[4]] TLS-ESPRIT改进空间平滑算法<br>[[5]] 基于稀疏面阵的低复杂度三维信源定位算法</p>
+</blockquote>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Algorithm/" class="category-chain-item">Algorithm</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/5G-%E9%80%9A%E6%84%9F/" class="print-no-link">#5G 通感</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>3D建模下的参数估计</div>
+      <div>http://example.com/2025/05/20/3D_Positioning_estimation/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Karina</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>May 20, 2025</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/04/24/AOA_Positioning/" title="基于5G通信的定位感知——AOA解算">
+                        <span class="hidden-mobile">基于5G通信的定位感知——AOA解算</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
