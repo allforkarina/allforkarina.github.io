@@ -1,0 +1,730 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.png">
+  <link rel="icon" href="/img/avatar.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Karina">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="MQTT基础概念：MQTT是一种通信架构；MQTT是一个一对多的通信架构，一个服务端（Broker）可以有多个客户端（Client）；   MQTT中有三个概念：     主题（Topic）    发布（Publish）    订阅（Subscribe）  主题是一种寻址方式，类似于Window的文件夹多级目录 例如 factory&#x2F;line1&#x2F;machine3&#x2F;temperature 等等，不同">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MQTT+LuatOS学习日志">
+<meta property="og:url" content="http://example.com/2025/05/23/How_use_mqtt_in_LuatOS/index.html">
+<meta property="og:site_name" content="Katarina&#39;s daily record">
+<meta property="og:description" content="MQTT基础概念：MQTT是一种通信架构；MQTT是一个一对多的通信架构，一个服务端（Broker）可以有多个客户端（Client）；   MQTT中有三个概念：     主题（Topic）    发布（Publish）    订阅（Subscribe）  主题是一种寻址方式，类似于Window的文件夹多级目录 例如 factory&#x2F;line1&#x2F;machine3&#x2F;temperature 等等，不同">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/image_2.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/image_b.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/image_j.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/image.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/image_z.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/image_s.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/image_q.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/image_1q.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/image_r.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/image_m.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/image_h.png">
+<meta property="article:published_time" content="2025-05-23T11:00:00.000Z">
+<meta property="article:modified_time" content="2025-05-23T11:51:41.346Z">
+<meta property="article:author" content="Karina">
+<meta property="article:tag" content="MQTT">
+<meta property="article:tag" content="Lua">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/image_2.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>MQTT+LuatOS学习日志 - Katarina&#39;s daily record</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":60,"cursorChar":"_","loop":true,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>(♥ ω ♥) Karina</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/desktop.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="MQTT+LuatOS学习日志"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-05-23 19:00" pubdate>
+          May 23, 2025 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          25 mins
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> views
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">MQTT+LuatOS学习日志</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    Last updated on May 23, 2025 pm
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="MQTT基础概念："><a href="#MQTT基础概念：" class="headerlink" title="MQTT基础概念："></a>MQTT基础概念：</h2><h2 id="MQTT是一种通信架构；MQTT是一个一对多的通信架构，一个服务端（Broker）可以有多个客户端（Client）；"><a href="#MQTT是一种通信架构；MQTT是一个一对多的通信架构，一个服务端（Broker）可以有多个客户端（Client）；" class="headerlink" title="MQTT是一种通信架构；MQTT是一个一对多的通信架构，一个服务端（Broker）可以有多个客户端（Client）；   "></a>MQTT是一种通信架构；<br>MQTT是一个一对多的通信架构，一个服务端（Broker）可以有多个客户端（Client）；   </h2><p>MQTT中有三个概念：   </p>
+<ol>
+<li>主题（Topic）   </li>
+<li>发布（Publish）   </li>
+<li>订阅（Subscribe）</li>
+</ol>
+<p>主题是一种寻址方式，类似于Window的文件夹多级目录<br><img src="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/image_2.png" srcset="/img/loading.gif" lazyload alt="Topic"></p>
+<h2 id="例如-factory-line1-machine3-temperature-等等，不同的Topic指向不同的内容以及类别；"><a href="#例如-factory-line1-machine3-temperature-等等，不同的Topic指向不同的内容以及类别；" class="headerlink" title="例如 factory/line1/machine3/temperature 等等，不同的Topic指向不同的内容以及类别；   "></a>例如 <code>factory/line1/machine3/temperature</code> 等等，不同的Topic指向不同的内容以及类别；   </h2><p>客户端Client可以即作为发布的来源也可以订阅发布的内容；<br><img src="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/image_b.png" srcset="/img/loading.gif" lazyload alt="Client"></p>
+<h2 id="而Broker作为信息的中转站，接收发布的信息并推送给订阅的用户端；"><a href="#而Broker作为信息的中转站，接收发布的信息并推送给订阅的用户端；" class="headerlink" title="而Broker作为信息的中转站，接收发布的信息并推送给订阅的用户端；   "></a>而Broker作为信息的中转站，接收发布的信息并推送给订阅的用户端；   </h2><p><img src="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/image_j.png" srcset="/img/loading.gif" lazyload alt="Broker"></p>
+<h2 id="发布者无需担心是否将信息发送给了订阅者，准确来说发布者与订阅者之间不是直连的！"><a href="#发布者无需担心是否将信息发送给了订阅者，准确来说发布者与订阅者之间不是直连的！" class="headerlink" title="发布者无需担心是否将信息发送给了订阅者，准确来说发布者与订阅者之间不是直连的！   "></a>发布者无需担心是否将信息发送给了订阅者，准确来说发布者与订阅者之间不是直连的！   </h2><h2 id="LuatOS中MQTT的API"><a href="#LuatOS中MQTT的API" class="headerlink" title="LuatOS中MQTT的API"></a>LuatOS中MQTT的API</h2><h3 id="常量："><a href="#常量：" class="headerlink" title="常量："></a>常量：</h3><p><img src="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/image.png" srcset="/img/loading.gif" lazyload alt="const"></p>
+<h3 id="订阅主题："><a href="#订阅主题：" class="headerlink" title="订阅主题："></a>订阅主题：</h3><p><img src="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/image_z.png" srcset="/img/loading.gif" lazyload alt="subscribe"></p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs Lua"><span class="hljs-comment">-- 订阅单个topic, 且qos=0mqttc:subscribe(&quot;/luatos/123456&quot;, 0)</span><br><span class="hljs-comment">-- 订阅单个topic, 且qos=1mqttc:subscribe(&quot;/luatos/12345678&quot;, 1)</span><br><span class="hljs-comment">-- 订阅多个topic, 且使用不同的qos -&gt; &#123; , &#125;区分不同topic</span><br>mqttc:subscribe(&#123;[<span class="hljs-string">&quot;/luatos/1234567&quot;</span>]=<span class="hljs-number">1</span>,[<span class="hljs-string">&quot;/luatos/12345678&quot;</span>]=<span class="hljs-number">2</span>&#125;)<br></code></pre></td></tr></table></figure>
+<h3 id="创建Client："><a href="#创建Client：" class="headerlink" title="创建Client："></a>创建Client：</h3><p><img src="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/image_s.png" srcset="/img/loading.gif" lazyload alt="Create Client"></p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs Lua"><span class="hljs-comment">-- 普通TCP链接</span><br>mqttc = mqtt.<span class="hljs-built_in">create</span>(<span class="hljs-literal">nil</span>,<span class="hljs-string">&quot;120.55.137.106&quot;</span>, <span class="hljs-number">1884</span>)<br><span class="hljs-comment">-- 普通TCP链接,mqtt接收缓冲区4096</span><br>mqttc = mqtt.<span class="hljs-built_in">create</span>(<span class="hljs-literal">nil</span>,<span class="hljs-string">&quot;120.55.137.106&quot;</span>, <span class="hljs-number">1884</span>, <span class="hljs-literal">nil</span>, &#123;rxSize = <span class="hljs-number">4096</span>&#125;)<br><span class="hljs-comment">-- 加密TCP链接,不验证服务器证书</span><br>mqttc = mqtt.<span class="hljs-built_in">create</span>(<span class="hljs-literal">nil</span>,<span class="hljs-string">&quot;120.55.137.106&quot;</span>, <span class="hljs-number">8883</span>, <span class="hljs-literal">true</span>)<br><span class="hljs-comment">-- 加密TCPTCP链接,单服务器证书验证</span><br>mqttc = mqtt.<span class="hljs-built_in">create</span>(<span class="hljs-literal">nil</span>,<span class="hljs-string">&quot;120.55.137.106&quot;</span>, <span class="hljs-number">8883</span>, &#123;server_cert=<span class="hljs-built_in">io</span>.readFile(<span class="hljs-string">&quot;/luadb/ca.crt&quot;</span>)&#125;)<br><span class="hljs-comment">-- 加密TCPTCP链接,单服务器证书验证, 但可选认证</span><br>mqttc = mqtt.<span class="hljs-built_in">create</span>(<span class="hljs-literal">nil</span>,<span class="hljs-string">&quot;120.55.137.106&quot;</span>, <span class="hljs-number">8883</span>, &#123;server_cert=<span class="hljs-built_in">io</span>.readFile(<span class="hljs-string">&quot;/luadb/ca.crt&quot;</span>), verify=<span class="hljs-number">1</span>&#125;)<br><span class="hljs-comment">-- 加密TCPTCP链接,双向证书验证</span><br>mqttc = mqtt.<span class="hljs-built_in">create</span>(<span class="hljs-literal">nil</span>,<span class="hljs-string">&quot;120.55.137.106&quot;</span>, <span class="hljs-number">8883</span>, &#123;server_cert=<span class="hljs-built_in">io</span>.readFile(<span class="hljs-string">&quot;/luadb/ca.crt&quot;</span>),client_cert=<span class="hljs-built_in">io</span>.readFile(<span class="hljs-string">&quot;/luadb/client.pem&quot;</span>),client_key=<span class="hljs-built_in">io</span>.readFile(<span class="hljs-string">&quot;/luadb/client.key&quot;</span>),client_password=<span class="hljs-string">&quot;123456&quot;</span>,&#125;)<br></code></pre></td></tr></table></figure>
+<p>上述MQTT的通信协议为TCP，官方文档说不支持Websocket！   </p>
+<h3 id="设置登录Client的信息："><a href="#设置登录Client的信息：" class="headerlink" title="设置登录Client的信息："></a>设置登录Client的信息：</h3><p><img src="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/image_q.png" srcset="/img/loading.gif" lazyload alt="auth"></p>
+<h3 id="MQTT服务器连接："><a href="#MQTT服务器连接：" class="headerlink" title="MQTT服务器连接："></a>MQTT服务器连接：</h3><p><img src="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/image_1q.png" srcset="/img/loading.gif" lazyload alt="connect"></p>
+<h3 id="MQTT发布："><a href="#MQTT发布：" class="headerlink" title="MQTT发布："></a>MQTT发布：</h3><p><img src="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/image_r.png" srcset="/img/loading.gif" lazyload alt="publish"></p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs Lua"><span class="hljs-comment">-- 				  topic         data</span><br>mqttc:publish(<span class="hljs-string">&quot;/luatos/123456&quot;</span>, <span class="hljs-string">&quot;123&quot;</span>)<br></code></pre></td></tr></table></figure>
+<h3 id="检测状态："><a href="#检测状态：" class="headerlink" title="检测状态："></a>检测状态：</h3><p><img src="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/image_m.png" srcset="/img/loading.gif" lazyload alt="Check State"></p>
+<h2 id="Lua语言的整体框架"><a href="#Lua语言的整体框架" class="headerlink" title="Lua语言的整体框架"></a>Lua语言的整体框架</h2><hr>
+<p>在Lua中，通过调用 <code>require(&quot;sys&quot;)</code> 定义一个实例sys，可以通过这个实例来创建系统任务：<br><img src="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/image_h.png" srcset="/img/loading.gif" lazyload alt="example"><br>可以同时创建多个任务，每个任务之间并行运行，且运行都限制在自己的上下文中，保障不同任务之间不会相互干扰。如果想要让不同的任务之间有先后执行的逻辑可以通过   </p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs Lua">sys.publish(<span class="hljs-string">&quot;net_ready&quot;</span>, device_IMEI)<br>sys.waitUntil(<span class="hljs-string">&quot;net_ready&quot;</span>)<br><br></code></pre></td></tr></table></figure>
+<p>这两句代码实现。一个用于发布一条事件，另一个等待该事件的完成，由此得到一个执行的先后顺序；   </p>
+<h2 id="MQTT-Lua语言示例代码："><a href="#MQTT-Lua语言示例代码：" class="headerlink" title="MQTT+Lua语言示例代码："></a>MQTT+Lua语言示例代码：</h2><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs Lua"><span class="hljs-comment">-- LuaTools需要PROJECT和VERSION这两个信息</span><br>PROJECT = <span class="hljs-string">&quot;mqttdemo&quot;</span><br>VERSION = <span class="hljs-string">&quot;1.0.0&quot;</span><br></code></pre></td></tr></table></figure>
+<p>.lua文件的开头必须要PROJECT的名称以及VERSION的版本；   </p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs Lua"><span class="hljs-comment">--根据自己的服务器修改以下参数</span><br><span class="hljs-keyword">local</span> mqtt_host = <span class="hljs-string">&quot;lbsmqtt.airm2m.com&quot;</span><br><span class="hljs-keyword">local</span> mqtt_port = <span class="hljs-number">1884</span><br><span class="hljs-keyword">local</span> mqtt_isssl = <span class="hljs-literal">false</span><br><span class="hljs-keyword">local</span> ca_file = <span class="hljs-literal">false</span><br><br><span class="hljs-comment">--必须跟服务器的配置一样</span><br><span class="hljs-keyword">local</span> client_id = <span class="hljs-string">&quot;mqttx_b55c41b7&quot;</span><br><span class="hljs-keyword">local</span> user_name = <span class="hljs-string">&quot;user&quot;</span><br><span class="hljs-keyword">local</span> password = <span class="hljs-string">&quot;password&quot;</span><br><br><span class="hljs-keyword">local</span> pub_topic = <span class="hljs-string">&quot;/luatos/pub/123&quot;</span><span class="hljs-comment">-- .. (mcu.unique_id():toHex())</span><br><span class="hljs-keyword">local</span> sub_topic = <span class="hljs-string">&quot;/luatos/sub/123&quot;</span><span class="hljs-comment">-- .. (mcu.unique_id():toHex())</span><br></code></pre></td></tr></table></figure>
+<p>用户的参数配置：<br>host以及port是自己服务器的参数，isssl表示是否加密连接；   </p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs Lua"><span class="hljs-comment">-- 结尾总是这一句</span><br>sys.run()<br><span class="hljs-comment">-- sys.run()之后后面不要加任何语句!!!!!</span><br></code></pre></td></tr></table></figure>
+<h2 id="结束的语句，启动sys并且循环运行任务列表里面的任务。"><a href="#结束的语句，启动sys并且循环运行任务列表里面的任务。" class="headerlink" title="结束的语句，启动sys并且循环运行任务列表里面的任务。   "></a>结束的语句，启动sys并且循环运行任务列表里面的任务。   </h2><p>整体的流程：   </p>
+<ol>
+<li>设置两个系统内部任务，任务一为联网，4G模块提供SIM卡成功联网并且返回设备的IMEI号；   </li>
+<li>设置第二个任务，将设备的IMEI号分配给Client，并且设置发布、订阅的主题，确保独立性；   </li>
+<li>创建mqtt连接（不一定正常连接上），以设备号以及预设置的user name和password配置mqtt，可以设置自动重连；   </li>
+<li>编写mqtt回调函数，在mqtt回调函数中检测事件，当连接上mqtt时将数据打包并且通过publish发给broker；</li>
+</ol>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs Lua">mqttc:on(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(mqtt_client, event, data, payload)</span></span><br>	<span class="hljs-built_in">log</span>.info(<span class="hljs-string">&quot;mqtt&quot;</span>, <span class="hljs-string">&quot;event&quot;</span>, event) <span class="hljs-comment">-- 可有</span><br>	<span class="hljs-keyword">if</span> event == <span class="hljs-string">&quot;conack&quot;</span> <span class="hljs-keyword">then</span><br>    	<span class="hljs-comment">-- MQTT 连接成功</span><br> 	   sys.publish(<span class="hljs-string">&quot;mqtt_conack&quot;</span>)<br> 	   mqtt_client:subscribe(sub_topic)<br><br>	   <span class="hljs-comment">-- 采集设备信息</span><br>	   <span class="hljs-keyword">local</span> imei = mobile.imei()<br>	   <span class="hljs-keyword">local</span> csq = mobile.csq()            <span class="hljs-comment">-- 信号强度</span><br> 	   <span class="hljs-keyword">local</span> voltage = mobile.getVbatt()   <span class="hljs-comment">-- 电池电压（单位 mV）</span><br>	<br>	   <span class="hljs-comment">-- 构造 JSON 格式的 payload 数据</span><br> 	   <span class="hljs-keyword">local</span> device_data = json.encode(&#123;<br>	        imei = imei,<br>	        csq = csq,<br>	        voltage = voltage,<br>	        timestamp = <span class="hljs-built_in">os</span>.<span class="hljs-built_in">time</span>()<br>	   &#125;)<br><br>	   <span class="hljs-built_in">log</span>.info(<span class="hljs-string">&quot;mqtt&quot;</span>, <span class="hljs-string">&quot;publish data&quot;</span>, device_data)<br>	<br> 	   <span class="hljs-comment">-- 发布数据到 topic（发布一次）</span><br> 	   mqtt_client:publish(pub_topic, device_data, <span class="hljs-number">0</span>)<br><br> 	   <span class="hljs-comment">-- 可选：配置一个上网指示灯亮起</span><br>	   gpio.set(<span class="hljs-number">11</span>, <span class="hljs-number">1</span>)  <span class="hljs-comment">-- 设置 GPIO11 为高电平，表示联网成功</span><br>	<span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span>)<br><br></code></pre></td></tr></table></figure>
+<p>一些Lua语言的细节：   </p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs Lua"><span class="hljs-comment">-- _G -&gt; GLOBAL VALUE</span><br><span class="hljs-built_in">_G</span>.sys = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;sys&quot;</span>)<br><span class="hljs-built_in">_G</span>.sysplus = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;sysplus&quot;</span>)<br><span class="hljs-built_in">_G</span>.mobile = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;mobile&quot;</span>)<br><span class="hljs-built_in">_G</span>.uart = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;uart&quot;</span>)<br><br><span class="hljs-comment">-- uart init</span><br>uart.setup(<br>    uart_id,<br>    uart_baud,<br>    uart_bitwidth,<br>    uart_stopbit<br>)<br><br><span class="hljs-comment">-- system inner tasks</span><br>sys.taskInit(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span><br>    <span class="hljs-keyword">local</span> device_id = mobile.imei() <span class="hljs-comment">-- read AIR780EG&#x27;s IMEI</span><br>    <span class="hljs-comment">-- waiting for 4G connected</span><br>    sys.waitUntil(<span class="hljs-string">&quot;IP_READY&quot;</span>)<br>	<span class="hljs-comment">-- system publish event</span><br>    sys.publish(<span class="hljs-string">&quot;net_ready&quot;</span>, device_id)<br><span class="hljs-keyword">end</span>)<br><br></code></pre></td></tr></table></figure>
+<p>下面是一个完整的脚本，具体的内容如下：   </p>
+<ol>
+<li>任务一：实现联网功能并在联网后发布事件；   </li>
+<li>任务二：等待联网事件，并根据IMEI设置client-id以及发布、订阅主题；之后根据配置创建mqtt连接并尝试连接；在mqtt回调函数中，如果连接上了则通过串口向单片机发送信息，并发布mqtt连接事件；   </li>
+<li>任务三：等待mqtt连接事件，之后开始接收单片传入的数据并且定位数据位置，将数据打包并通过mqtt上传云端；</li>
+</ol>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br></pre></td><td class="code"><pre><code class="hljs Lua">PROJECT = <span class="hljs-string">&quot;AIR780EG_DEMO&quot;</span><br>VERSION = <span class="hljs-string">&quot;1.0.0&quot;</span><br><br><span class="hljs-comment">-- Setup instance</span><br><span class="hljs-built_in">_G</span>.sys = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;sys&quot;</span>)<br><span class="hljs-built_in">_G</span>.sysplus = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;sysplus&quot;</span>)<br><br><span class="hljs-keyword">local</span> wdt = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;wdt&quot;</span>)<br><span class="hljs-keyword">local</span> <span class="hljs-built_in">log</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;log&quot;</span>)<br><span class="hljs-keyword">local</span> uart = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;uart&quot;</span>)<br><span class="hljs-keyword">local</span> mobile = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;mobile&quot;</span>)<br><span class="hljs-keyword">local</span> mqtt = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;mqtt&quot;</span>)    <span class="hljs-comment">-- 加载 mqtt 模块</span><br><span class="hljs-keyword">local</span> rtos = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;rtos&quot;</span>)    <span class="hljs-comment">-- 加载 rtos 模块（用于识别平台）</span><br><span class="hljs-keyword">local</span> pm = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;pm&quot;</span>)        <span class="hljs-comment">-- 加载电源管理模块（用于电源配置）</span><br><br><span class="hljs-keyword">if</span> wdt <span class="hljs-keyword">then</span><br>    <span class="hljs-comment">--添加硬狗防止程序卡死，在支持的设备上启用这个功能</span><br>    wdt.init(<span class="hljs-number">9000</span>)<span class="hljs-comment">--初始化watchdog设置为9s</span><br>    sys.timerLoopStart(wdt.feed, <span class="hljs-number">3000</span>)<span class="hljs-comment">--3s喂一次狗</span><br><span class="hljs-keyword">end</span><br><br><span class="hljs-comment">-- uart configuration</span><br><span class="hljs-keyword">local</span> uart_id = <span class="hljs-number">1</span><br><span class="hljs-keyword">local</span> uart_baud = <span class="hljs-number">115200</span><br><span class="hljs-keyword">local</span> uart_bitwidth = <span class="hljs-number">8</span><br><span class="hljs-keyword">local</span> uart_stopbit = <span class="hljs-number">1</span><br>uart.Setup(uart_id, uart_baud, uart_bitwidth, uart_stopbit)<br><br><span class="hljs-comment">-- server configuration</span><br><span class="hljs-keyword">local</span> mqtt_host = <span class="hljs-string">&quot;lbsmqtt.airm2m.com&quot;</span><br><span class="hljs-keyword">local</span> mqtt_port = <span class="hljs-number">1884</span><br><span class="hljs-keyword">local</span> mqtt_isssl = <span class="hljs-literal">false</span><br><span class="hljs-keyword">local</span> ca_file = <span class="hljs-literal">false</span><br><br><span class="hljs-comment">-- mqtt client configuration</span><br><span class="hljs-keyword">local</span> client_id = <span class="hljs-string">&quot;air780eg&quot;</span><br><span class="hljs-keyword">local</span> user_name = <span class="hljs-string">&quot;user&quot;</span><br><span class="hljs-keyword">local</span> password = <span class="hljs-string">&quot;password&quot;</span><br><br><span class="hljs-keyword">local</span> mqttc = <span class="hljs-literal">nil</span><br><span class="hljs-keyword">local</span> publish_topic = <span class="hljs-string">&quot;/air780eg/publish/123&quot;</span><br><span class="hljs-keyword">local</span> subscribe_topic = <span class="hljs-string">&quot;/air780eg/subscribe/123&quot;</span><br><br><span class="hljs-keyword">local</span> IsFirstConnect = <span class="hljs-literal">true</span><br><br><span class="hljs-comment">-- Task list</span><br><br><span class="hljs-comment">-- Air780E的AT固件默认会为开机键防抖, 导致部分用户刷机很麻烦</span><br><span class="hljs-keyword">if</span> rtos.bsp() == <span class="hljs-string">&quot;EC618&quot;</span> <span class="hljs-keyword">and</span> pm <span class="hljs-keyword">and</span> pm.PWK_MODE <span class="hljs-keyword">then</span><br>    pm.power(pm.PWK_MODE, <span class="hljs-literal">false</span>)<br><span class="hljs-keyword">end</span><br><br><span class="hljs-comment">-- network connect</span><br>sys.taskInit(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span></span><br>    <span class="hljs-keyword">local</span> device_IMEI = mobile.imei()   <span class="hljs-comment">-- string </span><br>    sys.waitUntil(<span class="hljs-string">&quot;IP_READY&quot;</span>)<br>    sys.publish(<span class="hljs-string">&quot;net_ready&quot;</span>, device_IMEI)<br><span class="hljs-keyword">end</span>)<br><br><span class="hljs-comment">-- mqtt connect</span><br>sys.taskInit(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span></span><br>    <span class="hljs-keyword">local</span> ret, IMEI = sys.waitUntil(<span class="hljs-string">&quot;net_ready&quot;</span>)<br>    <span class="hljs-keyword">if</span> ret <span class="hljs-keyword">then</span><br>        <span class="hljs-comment">-- use IMEI to set unique topic</span><br>        client_id = IMEI<br>        publish_topic = client_id .. <span class="hljs-string">&quot;/publish&quot;</span><br>        subscribe_topic = client_id .. <span class="hljs-string">&quot;/subscribe&quot;</span><br>        <span class="hljs-keyword">if</span> IsFirstConnect <span class="hljs-keyword">then</span><br>            <span class="hljs-comment">-- uart transmit logger to MCU</span><br>            uart.<span class="hljs-built_in">write</span>(uart_id, <span class="hljs-string">&quot;IMEI: &quot;</span> .. IMEI .. <span class="hljs-string">&quot;\r\n&quot;</span>)<br>            uart.<span class="hljs-built_in">write</span>(uart_id, <span class="hljs-string">&quot;publish_topic:&quot;</span> .. publish_topic .. <span class="hljs-string">&quot;\r\n&quot;</span>)<br>            uart.<span class="hljs-built_in">write</span>(uart_id, <span class="hljs-string">&quot;subscribe_topic:&quot;</span> .. subscribe_topic .. <span class="hljs-string">&quot;\r\n&quot;</span>)<br>            IsFirstConnect = <span class="hljs-literal">false</span><br>        <span class="hljs-keyword">end</span><br>    <span class="hljs-keyword">end</span><br><br>    <span class="hljs-comment">-- create mqtt client</span><br>    mqttc = mqtt.<span class="hljs-built_in">create</span>(mqtt_host, mqtt_port, mqtt_isssl, ca_file)<br>    mqttc:auth(client_id, user_name, password)  <span class="hljs-comment">-- set mqtt user-name and password(should be equal to the server setting)</span><br>    mqttc:autoreconn(<span class="hljs-literal">true</span>, <span class="hljs-number">3000</span>)                <span class="hljs-comment">-- set auto-reconnect</span><br><br>    <span class="hljs-comment">-- define callback function</span><br>    mqttc:on(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(mqtt_client, event, data, payload)</span></span><br>        <span class="hljs-keyword">if</span> event == <span class="hljs-string">&quot;conack&quot;</span> <span class="hljs-keyword">then</span><br>            uart.<span class="hljs-built_in">write</span>(uart_id, <span class="hljs-string">&quot;MQTT Connect\r\n&quot;</span>)<br>            sys.publish(<span class="hljs-string">&quot;mqtt_ready&quot;</span>)<br>        <span class="hljs-keyword">elseif</span> event == <span class="hljs-string">&quot;recv&quot;</span> <span class="hljs-keyword">then</span><br>            <span class="hljs-built_in">log</span>.info(<span class="hljs-string">&quot;mqtt&quot;</span>, <span class="hljs-string">&quot;收到消息&quot;</span>, data, payload)<br>        <span class="hljs-keyword">elseif</span> event == <span class="hljs-string">&quot;sent&quot;</span> <span class="hljs-keyword">then</span><br>            <span class="hljs-built_in">log</span>.info(<span class="hljs-string">&quot;mqtt&quot;</span>, <span class="hljs-string">&quot;发送成功&quot;</span>, data)<br>        <span class="hljs-keyword">elseif</span> event == <span class="hljs-string">&quot;disconnect&quot;</span> <span class="hljs-keyword">then</span><br>            <span class="hljs-built_in">log</span>.warn(<span class="hljs-string">&quot;mqtt&quot;</span>, <span class="hljs-string">&quot;断开连接&quot;</span>)<br>        <span class="hljs-keyword">end</span><br>    <span class="hljs-keyword">end</span>)<br><br>    <span class="hljs-comment">-- start to conneect server</span><br>    mqttc:connect()<br><span class="hljs-keyword">end</span>)<br><br><span class="hljs-comment">-- UART 数据接收 + MQTT 上传</span><br>sys.taskInit(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span><br>    sys.waitUntil(<span class="hljs-string">&quot;mqtt_ready&quot;</span>)<br><br>    <span class="hljs-built_in">log</span>.info(<span class="hljs-string">&quot;uart&quot;</span>, <span class="hljs-string">&quot;开始监听 UART 数据上传&quot;</span>)<br>    <span class="hljs-keyword">local</span> buffer = <span class="hljs-string">&quot;&quot;</span><br><br>    <span class="hljs-comment">-- uart接收触发中断 从id端口接收len长度的数据</span><br>    uart.on(uart_id, <span class="hljs-string">&quot;receive&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(id, len)</span></span><br>        <span class="hljs-keyword">local</span> data = uart.<span class="hljs-built_in">read</span>(id, <span class="hljs-built_in">len</span>)<br>        buffer = buffer .. data<br><br>        <span class="hljs-comment">-- 示例：以换行符作为一条完整数据的结束</span><br>        <span class="hljs-keyword">while</span> buffer:<span class="hljs-built_in">find</span>(<span class="hljs-string">&quot;\r\n&quot;</span>) <span class="hljs-keyword">do</span><br>            <span class="hljs-keyword">local</span> packet, remain = buffer:<span class="hljs-built_in">match</span>(<span class="hljs-string">&quot;^(.-)\r\n(.*)$&quot;</span>)<br>            buffer = remain <span class="hljs-keyword">or</span> <span class="hljs-string">&quot;&quot;</span><br><br>            <span class="hljs-comment">-- 打印接收到的串口数据</span><br>            <span class="hljs-built_in">log</span>.info(<span class="hljs-string">&quot;uart&quot;</span>, <span class="hljs-string">&quot;收到数据&quot;</span>, packet)<br>            uart.<span class="hljs-built_in">write</span>(uart_id, <span class="hljs-string">&quot;Receive Finish!\r\n&quot;</span>)<br><br>            <span class="hljs-comment">-- 发布到 MQTT（QoS=0）</span><br>            <span class="hljs-keyword">if</span> mqttc <span class="hljs-keyword">then</span><br>                mqttc:publish(publish_topic, packet, <span class="hljs-number">0</span>)<br>            <span class="hljs-keyword">end</span><br>        <span class="hljs-keyword">end</span><br>    <span class="hljs-keyword">end</span>)<br><span class="hljs-keyword">end</span>)<br><br><span class="hljs-comment">--[[</span><br><span class="hljs-comment">    说明：</span><br><span class="hljs-comment">    1. 该代码示例展示了如何使用 UART 接收数据并通过 MQTT 上传。</span><br><span class="hljs-comment">    2. 使用了 sysplus 库来处理系统任务和事件。</span><br><span class="hljs-comment">    3. 使用了 mqtt 库来处理 MQTT 客户端的连接和消息发送。</span><br><span class="hljs-comment">    4. 使用了 log 库来记录日志信息。</span><br><span class="hljs-comment">]]</span><br>sys.run()<br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Communication/" class="category-chain-item">Communication</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Communication/LuatOS-learning/" class="category-chain-item">LuatOS learning</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/MQTT/" class="print-no-link">#MQTT</a>
+      
+        <a href="/tags/Lua/" class="print-no-link">#Lua</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>MQTT+LuatOS学习日志</div>
+      <div>http://example.com/2025/05/23/How_use_mqtt_in_LuatOS/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Karina</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>May 23, 2025</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/05/23/K_Means/" title="聚类分类—算法以及python实现">
+                        <span class="hidden-mobile">聚类分类—算法以及python实现</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
