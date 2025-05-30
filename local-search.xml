@@ -4,6 +4,37 @@
   
   
   <entry>
+    <title>PicoScenes学习日志</title>
+    <link href="/2025/05/30/research/picoscenes_use_instruction/"/>
+    <url>/2025/05/30/research/picoscenes_use_instruction/</url>
+    
+    <content type="html"><![CDATA[<h1 id="PicoScenes——使用指南"><a href="#PicoScenes——使用指南" class="headerlink" title="PicoScenes——使用指南"></a>PicoScenes——使用指南</h1><p>Description：这是一篇快速上手的PicoScenes食用指南，我将从打开、查看配置、配置、以及抓包入手，对完整使用PicoScenes的流程进行一个快速的上手介绍;</p><h2 id="指定位置打开终端"><a href="#指定位置打开终端" class="headerlink" title="指定位置打开终端"></a>指定位置打开终端</h2><p>在你想要保存CSI得文件夹位置，右键空白位置，选择在终端中打开，之后就会在你想要的位置开启终端，并帮你cd到打开时的文件夹位置。</p><h2 id="查看信道配置"><a href="#查看信道配置" class="headerlink" title="查看信道配置"></a>查看信道配置</h2><p>第一步：先查看网卡的物理ID：</p><p><img src="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/e19de6014f384fedfc52c1c78f7191ef.png" alt="array_status"></p><p>第二步：查看到物理ID后先将网卡配置为监听模式，这时候默认配置即可；</p><p><img src="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/5f28ef35aeb55e65f49f36906c6d89cd.png" alt="prepare"></p><p>这里是给了一个配置，但是不影响，可以直接去掉双引号中的内容</p><p>第三步：查看监听模式下的网卡支持什么配置，包括信道以及带宽信息；</p><p><img src="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/8eba8c837ec696a9c2d5c739a45bbf06.png" alt="array_eval"></p><p><code>-h</code> 查看支持的指令，我们选择框起来的指令：<br><code>array_eval phyid iw PHY info</code> 将phyid改成你的网卡即可；</p><p>第四步：查看支持的信道以及带宽；</p><p><img src="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/f76f2165d0e2c66f68fdfd52640d4181.png" alt="Band"></p><p>可以看到，当前支持HT20以及HT40;</p><p><img src="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/fb9c4ff0cd53dbc38b9ee8f6d09bb29a.png" alt="Band"></p><p><img src="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/8bc9cf5c47f4cea7dcab830440c8d384.png" alt="Band"></p><p>以上便是支持的信道中心频率了，由此我们便可以重新对网卡的监听信道进行配置</p><h2 id="对PicoScenes进行配置"><a href="#对PicoScenes进行配置" class="headerlink" title="对PicoScenes进行配置"></a>对PicoScenes进行配置</h2><p><img src="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/5f28ef35aeb55e65f49f36906c6d89cd.png" alt="prepare"></p><p>重新使用该指令 <code>array_prepare_for_picoscenes phyid</code> 后面用双引号加上你需要的配置，这里我们设置为中心频率为5240MHz以及带宽为40MHz，注意40MHz带宽设置为 <code>HT40+</code> ；</p><h2 id="使用PicoScenes进行抓包并且保存"><a href="#使用PicoScenes进行抓包并且保存" class="headerlink" title="使用PicoScenes进行抓包并且保存"></a>使用PicoScenes进行抓包并且保存</h2><p><img src="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/de616e970c83e30d82a204d4d8bc12e2.png" alt="Band"></p><p>只需要调用该指令，便可以实现CSI的抓取</p><p><code>PicoScenes&quot;-d debug -i 3 --mode logger --plot&quot;</code> 注意要修改为对应的phyid</p><h2 id="终止PicoScenes抓包"><a href="#终止PicoScenes抓包" class="headerlink" title="终止PicoScenes抓包"></a>终止PicoScenes抓包</h2><p><img src="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/15813146a5b431a40489f9fa8abe75eb.png" alt="Band"></p><p>只需要ctrl+C便可以终止抓包，此时抓取的CSI便会出现在你打开终端时的文件夹中。如果是在桌面中打开的终端，则会保存到文件的一级目录里。</p><h2 id="使用中出现的现象："><a href="#使用中出现的现象：" class="headerlink" title="使用中出现的现象："></a>使用中出现的现象：</h2><p>当你配置完信道并开始抓取CSI时，有可能会出现没有plot的图像，或者plot图像更新很慢的问题，这是因为当前的信道WiFi活动比较弱，或者没有AP在这个信道中活动，是正常现象。</p><h1 id="PicoScenes监听与重启后的抓包来源"><a href="#PicoScenes监听与重启后的抓包来源" class="headerlink" title="PicoScenes监听与重启后的抓包来源"></a>PicoScenes监听与重启后的抓包来源</h1><p>已知，PicoScenes有内置的指令可以开启监听模式，在监听模式下可以抓取环境中WIFI的CSI，这一点可以通过观察802.11.ac的MAC帧头结构得到：</p><blockquote><p>开启监听模式后的源地址（5200HT20）<br><img src="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/25053005.png" alt="Mon"></p></blockquote><p>可以观察到多个不同的地址；</p><p>监听模式下可以接收到环境中的CSI</p><p>开启监听指令: array_prepare_for_picoscenes PhyPath（网卡的id）   </p><blockquote><p>重启电脑后的源地址（2422-40BW）<br><img src="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/25053002.png" alt="Non-Mon"></p></blockquote><p>只有一个源地址的CSI，重启可以关闭监听模式；   </p><blockquote><p>开启监听模式（2422-20BW）<br><img src="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/25053001.png" alt="Mon-2422"></p></blockquote><blockquote><p><img src="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/25053004.png" alt="Mon-2422"></p></blockquote><p>不同的源地址的CSI；   </p><blockquote><p>使用airmon-ng工具手动关闭mon并且重启（2422-40BW）<br><img src="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/25053002.png" alt="Mon-2422"></p></blockquote><p>只有一个源地址的CSI，重启可以关闭监听模式；   </p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Tools</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Linux</tag>
+      
+      <tag>CSI</tag>
+      
+      <tag>5G</tag>
+      
+      <tag>Positioning</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>基于贝叶斯决策的分类器</title>
     <link href="/2025/05/24/study/Bayes/"/>
     <url>/2025/05/24/study/Bayes/</url>
