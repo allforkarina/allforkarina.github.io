@@ -1,0 +1,767 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.png">
+  <link rel="icon" href="/img/avatar.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Karina">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="CIFAR-10数据集介绍CIFAR10包含有一共60000张32x32的彩色图像，这些图片中一共有10类不同的事物，每一类有6000张样本。这些图片按照5:1的比例随机分为训练集以及测试集。  下面将在这个开源的数据集上实现图像的分类，目前计划通过ResNet-18模型实现上述的分类功能； Python代码实现以及详解导入必要的库以及依赖我们这里使用Pytorch框架实现模型的训练以及结果的预测">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于CIFAR数据集实现的图像分类">
+<meta property="og:url" content="http://example.com/2025/05/29/study/%E5%9F%BA%E4%BA%8ECIFAR%E6%95%B0%E6%8D%AE%E9%9B%86%E7%9A%84%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB/index.html">
+<meta property="og:site_name" content="Katarina&#39;s daily record">
+<meta property="og:description" content="CIFAR-10数据集介绍CIFAR10包含有一共60000张32x32的彩色图像，这些图片中一共有10类不同的事物，每一类有6000张样本。这些图片按照5:1的比例随机分为训练集以及测试集。  下面将在这个开源的数据集上实现图像的分类，目前计划通过ResNet-18模型实现上述的分类功能； Python代码实现以及详解导入必要的库以及依赖我们这里使用Pytorch框架实现模型的训练以及结果的预测">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/25060103.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/25060104.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/25060101.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/25060102.png">
+<meta property="article:published_time" content="2025-05-29T11:00:00.000Z">
+<meta property="article:modified_time" content="2025-06-01T06:21:02.805Z">
+<meta property="article:author" content="Karina">
+<meta property="article:tag" content="AI">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/25060103.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>基于CIFAR数据集实现的图像分类 - Katarina&#39;s daily record</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":60,"cursorChar":"_","loop":true,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>(♥ ω ♥) Karina</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/desktop.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="基于CIFAR数据集实现的图像分类"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-05-29 19:00" pubdate>
+          May 29, 2025 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          26 mins
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> views
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">基于CIFAR数据集实现的图像分类</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    Last updated on June 1, 2025 pm
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="CIFAR-10数据集介绍"><a href="#CIFAR-10数据集介绍" class="headerlink" title="CIFAR-10数据集介绍"></a>CIFAR-10数据集介绍</h2><p>CIFAR10包含有一共60000张32x32的彩色图像，这些图片中一共有10类不同的事物，每一类有6000张样本。这些图片按照5:1的比例随机分为训练集以及测试集。</p>
+<p><img src="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/25060103.png" srcset="/img/loading.gif" lazyload alt="CIFAR-10"></p>
+<p>下面将在这个开源的数据集上实现图像的分类，目前计划通过ResNet-18模型实现上述的分类功能；</p>
+<h2 id="Python代码实现以及详解"><a href="#Python代码实现以及详解" class="headerlink" title="Python代码实现以及详解"></a>Python代码实现以及详解</h2><h3 id="导入必要的库以及依赖"><a href="#导入必要的库以及依赖" class="headerlink" title="导入必要的库以及依赖"></a>导入必要的库以及依赖</h3><p>我们这里使用Pytorch框架实现模型的训练以及结果的预测；</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch <br><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn <br><span class="hljs-keyword">from</span> tqdm <span class="hljs-keyword">import</span> tqdm <br><span class="hljs-keyword">from</span> torchvision <span class="hljs-keyword">import</span> transforms <br><span class="hljs-keyword">import</span> torchvision <br><span class="hljs-keyword">from</span> torch.utils.data <span class="hljs-keyword">import</span> DataLoader<br></code></pre></td></tr></table></figure>
+
+<p>导入 <code>tdqm</code> 库将训练的过程可视化，该库能够将训练的进度以进度条的形式显示出来；由于我们要实现的是图片的识别分类功能，这里选择导入 <code>torchvision</code> 库并使用预训练的模型参数提高训练的正确率以及速度；</p>
+<h3 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python">transform = transforms.Compose([ <br>    transforms.ToTensor(), <br>    transforms.Normalize((<span class="hljs-number">0.4914</span>, <span class="hljs-number">0.4822</span>, <span class="hljs-number">0.4465</span>), (<span class="hljs-number">0.2023</span>, <span class="hljs-number">0.1994</span>, <span class="hljs-number">0.2010</span>)), <br>    <span class="hljs-comment"># CIFAR-10 数据集的均值和标准差 </span><br>]) <br><br>batch_size = <span class="hljs-number">32</span><br><br>train_set = torchvision.datasets.CIFAR10(root=<span class="hljs-string">&#x27;./CIFAR&#x27;</span>, train=<span class="hljs-literal">True</span>, download=<span class="hljs-literal">True</span>, transform=transform)  <span class="hljs-comment">#root根据实际进行修改 </span><br>train_loader = DataLoader(train_set, batch_size=batch_size, shuffle=<span class="hljs-literal">True</span>, num_workers=<span class="hljs-number">0</span>) <br> <br>val_dataset = torchvision.datasets.CIFAR10(root=<span class="hljs-string">&#x27;./CIFAR&#x27;</span>, train=<span class="hljs-literal">False</span>, download=<span class="hljs-literal">True</span>, transform=transform)  <span class="hljs-comment">#root根据实际进行修改 </span><br>val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=<span class="hljs-literal">True</span>, num_workers=<span class="hljs-number">0</span>) <br><br></code></pre></td></tr></table></figure>
+
+<p>首先我们先定义了一个图片变换结构，作用是将图片，向量矩阵转换为Pytorch中定义的一个全新的数据结构——张量（Tensor）；之后根据该数据集的标准差对所有张量标准化归一化；</p>
+<p>之后定义了训练集数据以及验证集数据的加载器，能够设置一定的 <code>batch\_size</code> 每一次取数据进行训练或者验证的时候取一整个 <code>batch</code> ，提高训练的速度；同时还能够设置是否随机选择样本，以及线程数量；</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">device = torch.device(<span class="hljs-string">&#x27;cuda&#x27;</span> <span class="hljs-keyword">if</span> torch.cuda.is_available() <span class="hljs-keyword">else</span> <span class="hljs-string">&#x27;cpu&#x27;</span>) <br><span class="hljs-built_in">print</span>(device)<br></code></pre></td></tr></table></figure>
+
+<p>定义设备，如果当前支持CUDA则使用CUDA作为训练的设备，否则为CPU；CUDA的训练速度要比CPU的训练速度快，而且训练的效果会更好一些；</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">net = torchvision.models.resnet18(pretrained=<span class="hljs-literal">True</span>)  <span class="hljs-comment"># 加载预训练的模型参数</span><br>num_ftrs = net.fc.in_features                       <span class="hljs-comment"># 全连接层的特征</span><br><span class="hljs-comment"># 修改全连接层的输出维度为10 </span><br>net.fc = nn.Linear(num_ftrs, <span class="hljs-number">10</span>)                    <span class="hljs-comment"># 人为修改连接层的输出</span><br>net = net.to(device)<br></code></pre></td></tr></table></figure>
+
+<p>这里我们使用 <code>ResNet-18</code> 模型进行训练以及识别，为了加快训练的速度以及提高训练的准确率，选择导入Pytorch中预训练的模型参数；由于该数据集中只有10个类别，网络只需要10个输出，因此我们单独对网络的最后一层进行修改，将全连接层的输出修改为10；最后将模型导入到设备在。</p>
+<p>注意：CUDA与CPU不互通，模型以及数据到需要在同一个设备中；</p>
+<p>Net的结构如下：</p>
+<p><img src="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/25060104.png" srcset="/img/loading.gif" lazyload alt="ResNet-18"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">criterion = nn.CrossEntropyLoss() <br>optimizer = torch.optim.AdamW(lr=<span class="hljs-number">0.0001</span>, params=net.parameters()) <br>epochs = <span class="hljs-number">10</span><br></code></pre></td></tr></table></figure>
+
+<p>定义比较常见的两个函数作为赏罚函数，损失函数为<strong>交叉损失</strong>，优化函数定义为<strong>AdamW函数</strong>，想详细了解可以去参考一下文章：</p>
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1711.05101">[1711.05101] Decoupled Weight Decay Regularization</a></p>
+<p>训练轮数为10轮，训练轮数的选取比较有讲究，如果训练次数过少则模型的性能没有到最优；如果训练次数过多，则又会导致<strong>过拟合</strong>，训练效果下降。因此通常选择一个适中的次数，或者对每次训练的准确率进行判断，发现如果准确率的优化减缓时，意味着当前模型接近收敛，便提前结束训练并保存模型参数；</p>
+<hr>
+<p>下面是训练代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(epochs): <br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;--------------------Epoch: <span class="hljs-subst">&#123;epoch&#125;</span>--------------------\n&#x27;</span>) <br>     <br>    <span class="hljs-comment"># 训练阶段 </span><br>    net.train() <br>    running_loss = <span class="hljs-number">0.0</span> <br>    correct_train = <span class="hljs-number">0</span> <br>    total_train = <span class="hljs-number">0</span> <br>    <span class="hljs-keyword">for</span> inputs, labels <span class="hljs-keyword">in</span> tqdm(train_loader): <br>        inputs = inputs.to(device) <br>        labels = labels.to(device) <br> <br>        optimizer.zero_grad()   <span class="hljs-comment"># 清空梯度</span><br>        outputs = net(inputs)   <span class="hljs-comment"># 预测输出</span><br>        loss = criterion(outputs, labels) <br>        loss.backward()         <span class="hljs-comment"># 梯度下降</span><br>        optimizer.step()        <span class="hljs-comment"># 优化</span><br> <br>        running_loss += loss.item() <br>        _, predicted = torch.<span class="hljs-built_in">max</span>(outputs.data, <span class="hljs-number">1</span>) <br>        total_train += labels.size(<span class="hljs-number">0</span>) <br>        correct_train += (predicted == labels).<span class="hljs-built_in">sum</span>().item() <br>        train_loss = running_loss / <span class="hljs-built_in">len</span>(train_loader) <br><br>    train_acc = correct_train / total_train <br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;训练损失：&#123;:.4f&#125;，训练准确率：&#123;:.4f&#125;%&#x27;</span>.<span class="hljs-built_in">format</span>(train_loss, train_acc * <span class="hljs-number">100</span>)) <br> <br>    <span class="hljs-comment"># 验证阶段 </span><br>    net.<span class="hljs-built_in">eval</span>() <br>    correct_val = <span class="hljs-number">0</span> <br>    total_val = <span class="hljs-number">0</span> <br>    val_loss = <span class="hljs-number">0.0</span> <br>    <span class="hljs-comment"># 不更新梯度</span><br>    <span class="hljs-keyword">with</span> torch.no_grad(): <br>        <span class="hljs-keyword">for</span> inputs, labels <span class="hljs-keyword">in</span> tqdm(val_loader): <br>            inputs = inputs.to(device) <br>         <br>            labels = labels.to(device) <br> <br>            outputs = net(inputs) <br>            loss = criterion(outputs, labels) <br>            val_loss += loss.item() <br>            _, predicted = torch.<span class="hljs-built_in">max</span>(outputs.data, <span class="hljs-number">1</span>) <br>            total_val += labels.size(<span class="hljs-number">0</span>) <br>            correct_val += (predicted == labels).<span class="hljs-built_in">sum</span>().item() <br> <br>    val_loss /= <span class="hljs-built_in">len</span>(val_loader) <br>    val_acc = correct_val / total_val <br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;验证损失：&#123;:.4f&#125;，验证准确率：&#123;:.4f&#125;%&#x27;</span>.<span class="hljs-built_in">format</span>(val_loss, val_acc * <span class="hljs-number">100</span>)) <br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/25060101.png" srcset="/img/loading.gif" lazyload alt="CIFAR-10"></p>
+<p>以上就是输出的结果。</p>
+<h2 id="在CIFAR-100上实现图像的识别分类"><a href="#在CIFAR-100上实现图像的识别分类" class="headerlink" title="在CIFAR-100上实现图像的识别分类"></a>在CIFAR-100上实现图像的识别分类</h2><p>CIFAR-100，同CIFAR-10一样，不同的是该数据集包含有100种不同的实物，要对100个样本类别进行区分，对应的数据量也水涨船高；</p>
+<p>理论上两者的模型都差不多，但是ResNet-18对100个任务的区分效率低、效果差，因此我们这里尝试使用MobileNet_v2模型对CIFAR-100数据集进行训练，在损失函数以及优化函数的配置上略有不同：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 定义损失函数和优化器</span><br>criterion = nn.CrossEntropyLoss()<br><span class="hljs-comment"># 使用不同的学习率</span><br>optimizer = torch.optim.AdamW([<br>    &#123;<span class="hljs-string">&#x27;params&#x27;</span>: model.features.parameters(), <span class="hljs-string">&#x27;lr&#x27;</span>: <span class="hljs-number">1e-4</span>&#125;,    <span class="hljs-comment"># 特征提取层使用较小的学习率</span><br>    &#123;<span class="hljs-string">&#x27;params&#x27;</span>: model.classifier.parameters(), <span class="hljs-string">&#x27;lr&#x27;</span>: <span class="hljs-number">1e-3</span>&#125;   <span class="hljs-comment"># 分类层使用较大的学习率</span><br>])<br><br><span class="hljs-comment"># 学习率调度器</span><br>scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode=<span class="hljs-string">&#x27;min&#x27;</span>, factor=<span class="hljs-number">0.1</span>, patience=<span class="hljs-number">2</span>)<br><br>epochs = <span class="hljs-number">20</span>  <span class="hljs-comment"># 增加训练轮数</span><br></code></pre></td></tr></table></figure>
+
+<p>损失函数仍然使用交叉损失函数，但是我们在不同的阶段使用不同的学习率，在特征提取阶段使用小的学习率，分类时使用大的学习率。分类的损失直接与模型的表现有关，因此较高的学习率可以更快的收敛；</p>
+<p>使用**分层学习率（layer-wise learning rate decay）**的策略，它的好处包括：</p>
+<ol>
+<li><strong>保留预训练特征</strong>：较小的学习率用于 <code>features</code>，可保持预训练模型学到的通用特征。</li>
+<li><strong>快速适应新任务</strong>：较大的学习率用于 <code>classifier</code>，有利于快速适应 CIFAR-100 新任务。</li>
+<li><strong>训练更稳定、收敛更快</strong>：尤其在轻量网络中，更能体现训练灵活性。</li>
+</ol>
+<hr>
+<p>下面是训练代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><code class="hljs python">best_val_acc = <span class="hljs-number">0.0</span><br><span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(epochs):<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;\nEpoch <span class="hljs-subst">&#123;epoch+<span class="hljs-number">1</span>&#125;</span>/<span class="hljs-subst">&#123;epochs&#125;</span>&#x27;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;-&#x27;</span> * <span class="hljs-number">30</span>)<br>    <br>    <span class="hljs-comment"># 训练阶段</span><br>    model.train()<br>    running_loss = <span class="hljs-number">0.0</span><br>    correct_train = <span class="hljs-number">0</span><br>    total_train = <span class="hljs-number">0</span><br>    <br>    <span class="hljs-keyword">for</span> inputs, labels <span class="hljs-keyword">in</span> tqdm(train_loader, desc=<span class="hljs-string">&#x27;Training&#x27;</span>):<br>        inputs = inputs.to(device)<br>        labels = labels.to(device)<br>        <br>        optimizer.zero_grad()<br>        outputs = model(inputs)<br>        loss = criterion(outputs, labels)<br>        loss.backward()<br>        optimizer.step()<br>        <br>        running_loss += loss.item()<br>        _, predicted = torch.<span class="hljs-built_in">max</span>(outputs.data, <span class="hljs-number">1</span>)<br>        total_train += labels.size(<span class="hljs-number">0</span>)<br>        correct_train += (predicted == labels).<span class="hljs-built_in">sum</span>().item()<br>    <br>    train_loss = running_loss / <span class="hljs-built_in">len</span>(train_loader)<br>    train_acc = correct_train / total_train<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;Train Loss: <span class="hljs-subst">&#123;train_loss:<span class="hljs-number">.4</span>f&#125;</span> | Train Acc: <span class="hljs-subst">&#123;train_acc*<span class="hljs-number">100</span>:<span class="hljs-number">.2</span>f&#125;</span>%&#x27;</span>)<br>    <br>    <span class="hljs-comment"># 验证阶段</span><br>    model.<span class="hljs-built_in">eval</span>()<br>    val_loss = <span class="hljs-number">0.0</span><br>    correct_val = <span class="hljs-number">0</span><br>    total_val = <span class="hljs-number">0</span><br>    <br>    <span class="hljs-keyword">with</span> torch.no_grad():<br>        <span class="hljs-keyword">for</span> inputs, labels <span class="hljs-keyword">in</span> tqdm(val_loader, desc=<span class="hljs-string">&#x27;Validation&#x27;</span>):<br>            inputs = inputs.to(device)<br>            labels = labels.to(device)<br>            <br>            outputs = model(inputs)<br>            loss = criterion(outputs, labels)<br>            val_loss += loss.item()<br>            <br>            _, predicted = torch.<span class="hljs-built_in">max</span>(outputs.data, <span class="hljs-number">1</span>)<br>            total_val += labels.size(<span class="hljs-number">0</span>)<br>            correct_val += (predicted == labels).<span class="hljs-built_in">sum</span>().item()<br>    <br>    val_loss = val_loss / <span class="hljs-built_in">len</span>(val_loader)<br>    val_acc = correct_val / total_val<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;Val Loss: <span class="hljs-subst">&#123;val_loss:<span class="hljs-number">.4</span>f&#125;</span> | Val Acc: <span class="hljs-subst">&#123;val_acc*<span class="hljs-number">100</span>:<span class="hljs-number">.2</span>f&#125;</span>%&#x27;</span>)<br>    <br>    <span class="hljs-comment"># 更新学习率</span><br>    scheduler.step(val_loss)<br>    <br>    <span class="hljs-comment"># 保存最佳模型</span><br>    <span class="hljs-keyword">if</span> val_acc &gt; best_val_acc:<br>        best_val_acc = val_acc<br>        torch.save(model.state_dict(), <span class="hljs-string">&#x27;best_mobilenetv2_cifar100.pth&#x27;</span>)<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;Best validation accuracy: <span class="hljs-subst">&#123;best_val_acc*<span class="hljs-number">100</span>:<span class="hljs-number">.2</span>f&#125;</span>%&#x27;</span>)<br><br></code></pre></td></tr></table></figure>
+
+<p>输出如下：</p>
+<p><img src="https://raw.githubusercontent.com/allforkarina/embadded_image/refs/heads/master/25060102.png" srcset="/img/loading.gif" lazyload alt="CIFAR-10"></p>
+<h2 id="✅-MobileNetV2-相对于-ResNet-18-的优势与适用场景"><a href="#✅-MobileNetV2-相对于-ResNet-18-的优势与适用场景" class="headerlink" title="✅ MobileNetV2 相对于 ResNet-18 的优势与适用场景"></a>✅ MobileNetV2 相对于 ResNet-18 的优势与适用场景</h2><table>
+<thead>
+<tr>
+<th align="left">方面</th>
+<th align="left">ResNet-18</th>
+<th align="left">MobileNetV2</th>
+<th align="left">对比与解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>模型大小</strong></td>
+<td align="left">约 44.6M 参数</td>
+<td align="left">约 3.5M 参数</td>
+<td align="left">MobileNetV2 轻量很多，适合部署在资源受限设备（如嵌入式、手机端）。</td>
+</tr>
+<tr>
+<td align="left"><strong>计算效率</strong></td>
+<td align="left">中等</td>
+<td align="left">更快（低 FLOPs）</td>
+<td align="left">MobileNetV2 使用 <strong>深度可分离卷积</strong>，大大降低计算复杂度。</td>
+</tr>
+<tr>
+<td align="left"><strong>推理速度</strong></td>
+<td align="left">中</td>
+<td align="left">更快</td>
+<td align="left">推理延迟更低，尤其在 CPU 或边缘设备上。</td>
+</tr>
+<tr>
+<td align="left"><strong>准确率（ImageNet）</strong></td>
+<td align="left">Top-1: ~69.8%</td>
+<td align="left">Top-1: ~71.8%</td>
+<td align="left">MobileNetV2 有更优的参数效率。微调后在 CIFAR-100 上表现差距不大。</td>
+</tr>
+<tr>
+<td align="left"><strong>结构深度</strong></td>
+<td align="left">ResNet 残差结构</td>
+<td align="left">Inverted Residual + Linear Bottleneck</td>
+<td align="left">MobileNetV2 更现代、结构紧凑，有利于特征传递与训练。</td>
+</tr>
+<tr>
+<td align="left"><strong>训练稳定性</strong></td>
+<td align="left">非常稳定</td>
+<td align="left">稍敏感于学习率、调度器</td>
+<td align="left">MobileNetV2 结构浅，过大学习率容易震荡，但你设置了合理的 <code>lr</code> 和 <code>scheduler</code>，可以很好控制。</td>
+</tr>
+</tbody></table>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Algorithm/" class="category-chain-item">Algorithm</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/AI/" class="print-no-link">#AI</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>基于CIFAR数据集实现的图像分类</div>
+      <div>http://example.com/2025/05/29/study/基于CIFAR数据集的图像识别/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Karina</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>May 29, 2025</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/05/29/study/SVM/" title="SVM——Python代码实现以及解析">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">SVM——Python代码实现以及解析</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/05/24/study/Bayes/" title="基于贝叶斯决策的分类器">
+                        <span class="hidden-mobile">基于贝叶斯决策的分类器</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
