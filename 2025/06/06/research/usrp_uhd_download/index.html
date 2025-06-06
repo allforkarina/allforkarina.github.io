@@ -19,47 +19,25 @@
   <meta name="author" content="Karina">
   <meta name="keywords" content="">
   
-    <meta name="description" content="人工智能聚类分析——无监督什么是聚类分析：问题：给你一堆样本，如何通过样本间可能存在的联系将这些样本分为不同的类别？这些样本没有原本正确的类别，这种我们称为无监督（无标记的样本），希望寻找样本中存在的自然的聚类。  而对于原本就有标记的聚类行为我们称为分类，希望能够将混在一起的不同样本区分开来，这些样本的某写特征可能很相似，但是因为是不同标记，因此我们需要分开这些样本，这里与聚类的行为完全不同！">
+    <meta name="description" content="！！！本指引是基于以下环境实现的！！！ Ubuntu22.04 注意：英语系统 需要Linux系统支持的VPN，涉及到网络环境  如果对uhd驱动的版本没有要求的话，推荐直接使用默认安装： 123sudo add-apt-repository ppa:ettusresearch&#x2F;uhdsudo apt-get updatesudo apt-get install libuhd-dev uhd-ho">
 <meta property="og:type" content="article">
-<meta property="og:title" content="人工智能基础复习笔记">
-<meta property="og:url" content="http://example.com/2025/06/01/study/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/index.html">
+<meta property="og:title" content="基于Ubuntu22.04的UHD安装指引">
+<meta property="og:url" content="http://example.com/2025/06/06/research/usrp_uhd_download/index.html">
 <meta property="og:site_name" content="Katarina&#39;s daily record">
-<meta property="og:description" content="人工智能聚类分析——无监督什么是聚类分析：问题：给你一堆样本，如何通过样本间可能存在的联系将这些样本分为不同的类别？这些样本没有原本正确的类别，这种我们称为无监督（无标记的样本），希望寻找样本中存在的自然的聚类。  而对于原本就有标记的聚类行为我们称为分类，希望能够将混在一起的不同样本区分开来，这些样本的某写特征可能很相似，但是因为是不同标记，因此我们需要分开这些样本，这里与聚类的行为完全不同！">
+<meta property="og:description" content="！！！本指引是基于以下环境实现的！！！ Ubuntu22.04 注意：英语系统 需要Linux系统支持的VPN，涉及到网络环境  如果对uhd驱动的版本没有要求的话，推荐直接使用默认安装： 123sudo add-apt-repository ppa:ettusresearch&#x2F;uhdsudo apt-get updatesudo apt-get install libuhd-dev uhd-ho">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/20250601%20(5).png">
-<meta property="og:image" content="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/20250601%20(2).png">
-<meta property="og:image" content="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/20250601%20(17).png">
-<meta property="og:image" content="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/20250601%20(3).png">
-<meta property="og:image" content="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/20250601%20(1).png">
-<meta property="og:image" content="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/20250601%20(19).png">
-<meta property="og:image" content="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/20250601%20(16).png">
-<meta property="og:image" content="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/20250601%20(21).png">
-<meta property="og:image" content="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/20250601%20(9).png">
-<meta property="og:image" content="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/20250601%20(10).png">
-<meta property="og:image" content="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/20250601%20(8).png">
-<meta property="og:image" content="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/20250601%20(18).png">
-<meta property="og:image" content="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/20250601%20(4).png">
-<meta property="og:image" content="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/20250601%20(15).png">
-<meta property="og:image" content="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/20250601%20(14).png">
-<meta property="og:image" content="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/20250601%20(6).png">
-<meta property="og:image" content="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/20250601%20(11).png">
-<meta property="og:image" content="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/20250601%20(12).png">
-<meta property="og:image" content="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/20250601%20(20).png">
-<meta property="og:image" content="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/20250601%20(13).png">
-<meta property="og:image" content="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/20250601%20(7).png">
-<meta property="article:published_time" content="2025-06-01T11:00:00.000Z">
-<meta property="article:modified_time" content="2025-06-01T10:11:28.840Z">
+<meta property="article:published_time" content="2025-06-06T13:00:00.000Z">
+<meta property="article:modified_time" content="2025-06-06T07:27:38.364Z">
 <meta property="article:author" content="Karina">
-<meta property="article:tag" content="AI">
-<meta property="article:tag" content="Knowledge">
+<meta property="article:tag" content="USRP">
+<meta property="article:tag" content="UHD">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/20250601%20(5).png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>人工智能基础复习笔记 - Katarina&#39;s daily record</title>
+  <title>基于Ubuntu22.04的UHD安装指引 - Katarina&#39;s daily record</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -229,7 +207,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="人工智能基础复习笔记"></span>
+            <span id="subtitle" data-typed-text="基于Ubuntu22.04的UHD安装指引"></span>
           
         </div>
 
@@ -240,8 +218,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-06-01 19:00" pubdate>
-          June 1, 2025 pm
+        <time datetime="2025-06-06 21:00" pubdate>
+          June 6, 2025 pm
         </time>
       </span>
     
@@ -252,7 +230,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.7k words
+          375 words
         
       </span>
     
@@ -263,7 +241,7 @@
         
         
         
-          22 mins
+          5 mins
         
       </span>
     
@@ -309,12 +287,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">人工智能基础复习笔记</h1>
+            <h1 id="seo-header">基于Ubuntu22.04的UHD安装指引</h1>
             
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    Last updated on June 1, 2025 pm
+                    Last updated on June 6, 2025 pm
                   
                 
               </p>
@@ -322,76 +300,31 @@
             
               <div class="markdown-body">
                 
-                <h1 id="人工智能"><a href="#人工智能" class="headerlink" title="人工智能"></a>人工智能</h1><h1 id="聚类分析——无监督"><a href="#聚类分析——无监督" class="headerlink" title="聚类分析——无监督"></a>聚类分析——无监督</h1><h2 id="什么是聚类分析："><a href="#什么是聚类分析：" class="headerlink" title="什么是聚类分析："></a>什么是聚类分析：</h2><p><strong>问题：给你一堆样本，如何通过样本间可能存在的联系将这些样本分为不同的类别？</strong><br>这些样本没有原本<strong>正确</strong>的类别，这种我们称为无监督（无标记的样本），希望寻找样本中存在的<strong>自然</strong>的聚类。</p>
-<p><img src="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/20250601%20(5).png" srcset="/img/loading.gif" lazyload alt="001"></p>
-<p>而对于原本就<strong>有标记</strong>的聚类行为我们称为分类，希望能够将混在一起的不同样本区分开来，这些样本的某写特征可能很相似，但是因为是不同标记，因此我们需要分开这些样本，这里与聚类的行为<strong>完全不同！</strong></p>
-<p><img src="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/20250601%20(2).png" srcset="/img/loading.gif" lazyload alt="002"></p>
-<p>对于一个详细的实物，我们如何使用计算机对他们进行处理，这就要求我们对实物的本体或者特征抽象为一个个特征向量，通过<strong>特征向量的距离</strong>来表征相似性！所以，如何抽象出特征向量决定了聚类的准确性。</p>
-<p><img src="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/20250601%20(17).png" srcset="/img/loading.gif" lazyload alt="003"></p>
-<p>上面的例子就体现出了特征的选取在聚类中起到至关重要的作用！</p>
-<h2 id="特征相似性的测度和聚类准则"><a href="#特征相似性的测度和聚类准则" class="headerlink" title="特征相似性的测度和聚类准则"></a>特征相似性的测度和聚类准则</h2><p>最常见的，我们使用欧氏距离表征两个特征向量之间的距离：</p>
-<p>$$<br>d(x, y) &#x3D; \sqrt{(x - y)^T (x - y)} &#x3D; \sqrt{\sum_{i&#x3D;1}^n (x_i - y_i)^2}<br>$$</p>
-<p>注意，这里的计算需要在同一个量纲下。</p>
-<p><img src="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/20250601%20(3).png" srcset="/img/loading.gif" lazyload alt="004"></p>
-<p>在第一种情况下，你会发现学生身高对欧氏距离的影响在体重面前完全不值一提，就算此时身高相差1m对于两个学生对应特征向量之间的欧氏距离影响也微乎其微；而第二种，两种特征对欧氏距离都有较大的影响因子（用于表征该特征对欧氏距离的影响力）。</p>
-<hr>
-<p>对于上面的这个问题，推出了马氏距离归一化样本特征之间的相关性：</p>
-<p>$$<br>d(x, y) &#x3D; \sqrt{(x - y)^T S^{-1} (x - y)}<br>$$</p>
-<p>欧式距离中，完全是<strong>特征向量中对应分量相乘</strong>，再相加得到，如果某一项的值非常大，那么其值就会掩盖值小的一项所起到的作用，这是欧式距离的不足；当采用马氏距离，就可以屏蔽这一点，因为相关性强的一个分量，对应于<strong>协方差矩阵C中对角线上的那一项的值就会大</strong>一些。再将这一项<strong>取倒数</strong>，减小该影响。</p>
-<p>通过上面的描述你也可以发现，马氏距离对特征向量中每一个分量都做了归一化，并且由于协方差的量纲与原始分量相同，所以马氏距离的结果<strong>与原始数据的量纲无关</strong>。</p>
-<p><img src="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/20250601%20(1).png" srcset="/img/loading.gif" lazyload alt="005"></p>
-<p>左图是欧氏距离，右图是马氏距离。左图中，A, B到均值的距离相同，因此都在同一个圆上，忽略了数据的分布（量纲）的不同；右图中，通过协方差矩阵调整了$X_{1}, X_{2}$从而使得虽然A, B之间的马氏距离不同但是更符合数据的分布。</p>
-<p><img src="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/20250601%20(19).png" srcset="/img/loading.gif" lazyload alt="006"></p>
-<p>上图中更是反映出，欧氏距离的等高线是以原点为中心的圆分布，右边的马氏距离等高线与数据的分布相似。</p>
-<hr>
-<p>除了上述两种相似性的测量方式，还有：</p>
-<p>角度相似性函数</p>
-<p><img src="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/20250601%20(16).png" srcset="/img/loading.gif" lazyload alt="007"></p>
-<p>用于表征两个特征向量之间的夹角大小，这样表述相似性有两个好处：</p>
-<ol>
-<li>当特征空间进行尺度变换，如放大缩小时，夹角保持不变；   </li>
-<li>当坐标系旋转，或者坐标变换，如仿射变换，双线性变换，平方变换、双平方变换时，夹角不变；</li>
+                <h2 id="！！！本指引是基于以下环境实现的！！！"><a href="#！！！本指引是基于以下环境实现的！！！" class="headerlink" title="！！！本指引是基于以下环境实现的！！！"></a>！！！本指引是基于以下环境实现的！！！</h2><ol>
+<li>Ubuntu22.04</li>
+<li>注意：英语系统</li>
+<li>需要Linux系统支持的VPN，涉及到网络环境</li>
 </ol>
-<p>Tanimoto测度：</p>
-<p><img src="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/20250601%20(21).png" srcset="/img/loading.gif" lazyload alt="008"></p>
-<p>其中x和z的分量用二值来表示，0表示不具有某种特征，1表示具有某种特征。这样就可以表示为所有特征中共有的特征占比了。<br>表示出两个特征向量之间的相似度后，我们需要定义一个聚类准则函数，使聚类问题变成一个最优化问题，比如说误差平方和：</p>
-<p>$$<br>J &#x3D; \sum_{j&#x3D;1}^{c} \sum_{x \in S} |x - m_j|^2<br>$$</p>
-<p>$m_{j}$是定义的质心，使聚类后的同类之间到质心的距离和最小，质心通过平均求得。</p>
-<h2 id="分级聚类"><a href="#分级聚类" class="headerlink" title="分级聚类"></a>分级聚类</h2><p><img src="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/20250601%20(9).png" srcset="/img/loading.gif" lazyload alt="009"></p>
-<p><img src="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/20250601%20(10).png" srcset="/img/loading.gif" lazyload alt="0010"></p>
-<p>类间距离准则：</p>
-<ol>
-<li>最近邻域：<br>两个不同的类别之间最近的两个样本之间的距离代表两个类别之间的距离；   </li>
-<li>最远邻域：<br>两个不同的类别之间最远的两个样本之间的距离代表两个类别之间的距离；</li>
-<li>平均邻域：<br>两个类别的质心间的距离表示两个类别之间的距离</li>
-</ol>
-<p><img src="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/20250601%20(8).png" srcset="/img/loading.gif" lazyload alt="0011"></p>
-<p>以最近邻域为例（右上），先初始化所有样本各为一个聚类，然后计算不同类之间的距离，将距离最近的两个类进行<strong>合并</strong>，之后重新计算类之间的距离，合并后的类计算距离时取类内样本最小距离；按照如此继续聚类合并直到只剩下需求的类别数量；</p>
-<p>通过上面的聚类结果可视化能发现，由于样本中<strong>存在一个噪声</strong>，即距离较远的样本，无论如何计算最近距离该样本都会被判定为一个类，而相距较近的不同类反而被误判为同类。</p>
-<p><img src="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/20250601%20(18).png" srcset="/img/loading.gif" lazyload alt="0012"></p>
-<p>举个例子🤓 ：</p>
-<p><img src="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/20250601%20(4).png" srcset="/img/loading.gif" lazyload alt="0013"></p>
-<p>答案见P43。</p>
-<h2 id="K均值聚类法"><a href="#K均值聚类法" class="headerlink" title="K均值聚类法"></a>K均值聚类法</h2><p><img src="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/20250601%20(15).png" srcset="/img/loading.gif" lazyload alt="0014"></p>
-<p>一个比较明显跟分级聚类不同的地方是，类间的距离不是取样本间距离作为判断依据，而是取样本的均值定义为类别重心，求样本到重心的距离来判断该样本属于哪个类别；</p>
-<p>问题:   </p>
-<ul>
-<li>如果k值的选取不正确，那么聚类错误；   </li>
-<li>高度依赖于初始值选取；   </li>
-<li>更适用“球形”分布的数据，难处理非球形聚类；</li>
-</ul>
-<p><img src="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/20250601%20(14).png" srcset="/img/loading.gif" lazyload alt="0015"></p>
-<p>如果一开始的中心取在上下两端则会出现右图的分类情况，因此Kmeans聚类对初始值的选择较敏感；</p>
-<p>尝试下面题目：</p>
-<p><img src="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/20250601%20(6).png" srcset="/img/loading.gif" lazyload alt="0016"></p>
-<h2 id="基于密度峰值的聚类方式"><a href="#基于密度峰值的聚类方式" class="headerlink" title="基于密度峰值的聚类方式"></a>基于密度峰值的聚类方式</h2><p>由于Kmeans只适合球状分布，因此针对非球状分布推出了密度峰值聚类；</p>
-<p><img src="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/20250601%20(11).png" srcset="/img/loading.gif" lazyload alt="0017"></p>
-<p><img src="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/20250601%20(12).png" srcset="/img/loading.gif" lazyload alt="0018"></p>
-<p>局部密度定义为$\rho_i &#x3D; \sum_j \chi(d_{ij} - d_c)$，其中$d_{ij}$表示数据对之间的距离，$d_{c}$为距离阈值，如果距离小于阈值则$\rho_{i}$加一，这样可以计算出局部的密度；</p>
-<p><img src="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/20250601%20(20).png" srcset="/img/loading.gif" lazyload alt="0019"></p>
-<p><img src="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/20250601%20(13).png" srcset="/img/loading.gif" lazyload alt="0020"></p>
-<p>试着解决以下问题吧🤓</p>
-<p><img src="https://raw.github.com/allforkarina/embadded_image/refs/heads/master/20250601%20(7).png" srcset="/img/loading.gif" lazyload alt="0021"></p>
+<p>如果对uhd驱动的版本没有要求的话，推荐直接使用默认安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> add-apt-repository ppa:ettusresearch/uhd<br><span class="hljs-built_in">sudo</span> apt-get update<br><span class="hljs-built_in">sudo</span> apt-get install libuhd-dev uhd-host<br></code></pre></td></tr></table></figure>
+
+<p>上述指令想要不报错的运行就需要系统在安装时选择英文系统，这就跟window系统的中文路径一样；</p>
+<hr>
+<p>上述指令后uhd驱动就已经安装好了！如果你使用的USRP跟我一样是B210或者B200mini，B200系列的话，你还需要以下指令给这些USRP安装额外的驱动，如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> /lib/uhd/utils<br><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">cp</span> uhd-usrp.rules /etc/udev/rules.d/<br><span class="hljs-built_in">sudo</span> udevadm control --reload-rules<br><span class="hljs-built_in">sudo</span> udevadm trigger<br></code></pre></td></tr></table></figure>
+
+<p>在运行上述第一条指令时推荐到桌面的上级目录开始执行，只需要在前面加一句：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> ~<br></code></pre></td></tr></table></figure>
+
+<p>即可输入后续的指令：</p>
+<h2 id="补充："><a href="#补充：" class="headerlink" title="补充："></a>补充：</h2><p>给设备下载固件镜像，不然你的电脑很可能识别不到你的设备；</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> ~<br><span class="hljs-built_in">sudo</span> uhd_images_downloader<br></code></pre></td></tr></table></figure>
+
+<p>上述指令中的第一句是我个人自己添加的，不清楚是否可行；</p>
+<p>如果你是一步一步按照上面来的话，在运行完安装驱动的指令后，你所处的目录应该是</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">~/lib/uhd/utils<br></code></pre></td></tr></table></figure>
+
+<p>本人验证过，在这个目录下可以直接运行固件的下载指令，后续运行也没有问题，如果担心目录改变导致运行报错的话，请自行忽略 <code>cd ~</code> 这一句。</p>
 
                 
               </div>
@@ -410,12 +343,12 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Algorithm/" class="category-chain-item">Algorithm</a>
+  <a href="/categories/Linux/" class="category-chain-item">Linux</a>
   
   
     <span>></span>
     
-  <a href="/categories/Algorithm/Review/" class="category-chain-item">Review</a>
+  <a href="/categories/Linux/Ubuntu/" class="category-chain-item">Ubuntu</a>
   
   
 
@@ -432,9 +365,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/AI/" class="print-no-link">#AI</a>
+        <a href="/tags/USRP/" class="print-no-link">#USRP</a>
       
-        <a href="/tags/Knowledge/" class="print-no-link">#Knowledge</a>
+        <a href="/tags/UHD/" class="print-no-link">#UHD</a>
       
     </div>
   
@@ -446,8 +379,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>人工智能基础复习笔记</div>
-      <div>http://example.com/2025/06/01/study/人工智能/</div>
+      <div>基于Ubuntu22.04的UHD安装指引</div>
+      <div>http://example.com/2025/06/06/research/usrp_uhd_download/</div>
     </div>
     <div class="license-meta">
       
@@ -459,7 +392,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>June 1, 2025</div>
+          <div>June 6, 2025</div>
         </div>
       
       
@@ -491,18 +424,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/06/06/research/usrp_uhd_download/" title="基于Ubuntu22.04的UHD安装指引">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">基于Ubuntu22.04的UHD安装指引</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/05/30/research/picoscenes_use_instruction/" title="PicoScenes学习日志">
-                        <span class="hidden-mobile">PicoScenes学习日志</span>
+                      <a href="/2025/06/01/study/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" title="人工智能基础复习笔记">
+                        <span class="hidden-mobile">人工智能基础复习笔记</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
