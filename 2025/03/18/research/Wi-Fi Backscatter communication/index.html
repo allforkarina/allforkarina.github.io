@@ -1,308 +1,212 @@
-
-
-<!DOCTYPE html>
-<html lang="en" data-default-color-scheme=auto>
-
-
-
-<head>
-  <meta charset="UTF-8">
-
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.png">
-  <link rel="icon" href="/img/avatar.png">
-  
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  
-  <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="Karina">
-  <meta name="keywords" content="">
-  
-    <meta name="description" content="AbstractThis article is about a new way of communication for edge IoT devices. Aims at transmitting information of sensors without consuming energy or even store energy for sensing environment. It is">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Wi-Fi Backscatter communication | Katarina's diary</title><meta name="author" content="Karina"><meta name="copyright" content="Karina"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="AbstractThis article is about a new way of communication for edge IoT devices. Aims at transmitting information of sensors without consuming energy or even store energy for sensing environment. It is">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Wi-Fi Backscatter communication">
-<meta property="og:url" content="http://example.com/2025/03/18/research/Wi-Fi%20Backscatter%20communication/index.html">
-<meta property="og:site_name" content="Katarina&#39;s daily record">
+<meta property="og:url" content="https://uestc-xtkx.github.io/2025/03/18/research/Wi-Fi%20Backscatter%20communication/index.html">
+<meta property="og:site_name" content="Katarina&#39;s diary">
 <meta property="og:description" content="AbstractThis article is about a new way of communication for edge IoT devices. Aims at transmitting information of sensors without consuming energy or even store energy for sensing environment. It is">
-<meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://github.com/allforkarina/embadded_image/blob/master/20250406065801171.png?raw=true">
-<meta property="og:image" content="https://github.com/allforkarina/embadded_image/blob/master/20250406065807770.png?raw=true">
-<meta property="og:image" content="https://github.com/allforkarina/embadded_image/blob/master/20250406065816107.png?raw=true">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://uestc-xtkx.github.io/img/rich_man_karina_1.jpg">
 <meta property="article:published_time" content="2025-03-18T06:08:02.000Z">
 <meta property="article:modified_time" content="2025-04-05T23:12:39.349Z">
 <meta property="article:author" content="Karina">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://github.com/allforkarina/embadded_image/blob/master/20250406065801171.png?raw=true">
-  
-  
-    <meta name="referrer" content="no-referrer-when-downgrade">
-  
-  
-  <title>Wi-Fi Backscatter communication - Katarina&#39;s daily record</title>
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
-
-
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-
-
-<!-- 主题依赖的图标库，不要自行修改 -->
-<!-- Do not modify the link that theme dependent icons -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
-
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-
-  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
-  
-    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
-  
-
-
-
-  
-<link rel="stylesheet" href="/css/custom_css.css">
-
-
-
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":60,"cursorChar":"_","loop":true,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
-
-    if (CONFIG.web_analytics.follow_dnt) {
-      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
-      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://uestc-xtkx.github.io/img/rich_man_karina_1.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Wi-Fi Backscatter communication",
+  "url": "https://uestc-xtkx.github.io/2025/03/18/research/Wi-Fi%20Backscatter%20communication/",
+  "image": "https://uestc-xtkx.github.io/img/rich_man_karina_1.jpg",
+  "datePublished": "2025-03-18T06:08:02.000Z",
+  "dateModified": "2025-04-05T23:12:39.349Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Karina",
+      "url": "https://uestc-xtkx.github.io"
     }
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
+  ]
+}</script><link rel="shortcut icon" href="/img/nav_logo.png"><link rel="canonical" href="https://uestc-xtkx.github.io/2025/03/18/research/Wi-Fi%20Backscatter%20communication/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
   
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
 
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
 
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
   
-<meta name="generator" content="Hexo 7.3.0"></head>
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Wi-Fi Backscatter communication',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
 
+  preloader.initLoading()
 
-<body>
-  
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
 
-  <header>
-    
-
-<div class="header-inner" style="height: 70vh;">
-  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand" href="/">
-      <strong>(♥ ω ♥) Karina</strong>
-    </a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/" target="_self">
-                <i class="iconfont icon-home-fill"></i>
-                <span>Home</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/" target="_self">
-                <i class="iconfont icon-archive-fill"></i>
-                <span>Archives</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/" target="_self">
-                <i class="iconfont icon-category-fill"></i>
-                <span>Categories</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/" target="_self">
-                <i class="iconfont icon-tags-fill"></i>
-                <span>Tags</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/" target="_self">
-                <i class="iconfont icon-user-fill"></i>
-                <span>About</span>
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              <i class="iconfont icon-search"></i>
-            </a>
-          </li>
-          
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
-              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
-            </a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-</nav>
-
-  
-
-<div id="banner" class="banner" parallax=true
-     style="background: url('/img/desktop.jpg') no-repeat center center; background-size: cover;">
-  <div class="full-bg-img">
-    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-      <div class="banner-text text-center fade-in-up">
-        <div class="h2">
-          
-            <span id="subtitle" data-typed-text="Wi-Fi Backscatter communication"></span>
-          
-        </div>
-
-        
-          
-  <div class="mt-3">
-    
-    
-      <span class="post-meta">
-        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-03-18 14:08" pubdate>
-          March 18, 2025 pm
-        </time>
-      </span>
-    
-  </div>
-
-  <div class="mt-1">
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-chart"></i>
-        
-          1.3k words
-        
-      </span>
-    
-
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-clock-fill"></i>
-        
-        
-        
-          17 mins
-        
-      </span>
-    
-
-    
-    
-      
-        <span id="busuanzi_container_page_pv" style="display: none">
-          <i class="iconfont icon-eye" aria-hidden="true"></i>
-          <span id="busuanzi_value_page_pv"></span> views
-        </span>
-        
-
-      
-    
-  </div>
-
-
-        
-      </div>
-
-      
-    </div>
-  </div>
-</div>
-
-</div>
-
-  </header>
-
-  <main>
-    
-      
-
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-
-    </div>
-
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div id="board">
-          <article class="post-content mx-auto">
-            <h1 id="seo-header">Wi-Fi Backscatter communication</h1>
-            
-              <p id="updated-time" class="note note-info" style="">
-                
-                  
-                    Last updated on April 6, 2025 am
-                  
-                
-              </p>
-            
-            
-              <div class="markdown-body">
-                
-                <h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>This article is about a new way of communication for edge IoT devices. Aims at transmitting information of sensors without consuming energy or even store energy for sensing environment.</p>
+  if (false) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/karina_avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">15</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">16</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></li><li><a class="site-page child" href="/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/rich_man_karina_1.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/nav_logo.png" alt="Logo"><span class="site-name">Katarina's diary</span></a><a class="nav-page-title" href="/"><span class="site-name">Wi-Fi Backscatter communication</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></li><li><a class="site-page child" href="/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Wi-Fi Backscatter communication</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-03-18T06:08:02.000Z" title="发表于 2025-03-18 14:08:02">2025-03-18</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-04-05T23:12:39.349Z" title="更新于 2025-04-06 07:12:39">2025-04-06</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>This article is about a new way of communication for edge IoT devices. Aims at transmitting information of sensors without consuming energy or even store energy for sensing environment.</p>
 <p>It is a great method to deal with situation which may encounter some problems like short-energy.</p>
 <p>We realise this method based on 802.11.ac frame structure, using a mcu controling RFID switch to change the resist value, which cause the changing in phase of the Wi-Fi packets.</p>
 <p>The <strong>180 degrees</strong> inversion in phase of Wi-Fi packets will destroy the mac frame of signal transmitted in Los(Line of sight) as superimposed by the inversed Wi-Fi packets, which cause the <strong>0 bits</strong> in ACK block.</p>
@@ -315,15 +219,15 @@
 <li><p>有的人想你把用户发出的数据破坏了，那用户不就丢包了吗？这时候，我们就要理解多径。信号在空气中不是只沿一条直线传播的，而是在一定范围的角度范围内都有的，这也导致了多径的产生。假设我们现在发出的信号只有两条路径</p>
 </li>
 </ol>
-<p><img src="https://github.com/allforkarina/embadded_image/blob/master/20250406065801171.png?raw=true" srcset="/img/loading.gif" lazyload alt="Multiple Path"></p>
+<p><img src="https://github.com/allforkarina/embadded_image/blob/master/20250406065801171.png?raw=true" alt="Multiple Path"></p>
 <p>其中从Helper到Reader的路径是最短的直线（称为LOS）。另一条路径的信号可能由于外界环境的反射（跟声波一样），路径长度更长，使得信号到达Reader时相比于LOS有一个时延，而这个时延就会导致信号的相位发生改变（改变180°就相当于反向）。</p>
 <ol start="3">
 <li>那么我们如何实现这个相位反向呢，靠运气等环境自己使信号相位改变吗？下面我们就要讲硬件实现思路。我们都知道信号波长与频率之间的关系：</li>
 </ol>
-<p><img src="https://github.com/allforkarina/embadded_image/blob/master/20250406065807770.png?raw=true" srcset="/img/loading.gif" lazyload alt="Multiple Path"></p>
+<p><img src="https://github.com/allforkarina/embadded_image/blob/master/20250406065807770.png?raw=true" alt="Multiple Path"></p>
 <p>一般频率我们已知，那么我们也就能够算出来信号的波长。一个波长从公式的角度等价于一个完整周期，等价于一个360°的相位偏移，那么我们可以设计一个标签我们的Tag在信号的传输路径中间，用一个开关切换路径，一共两条，一条路径长度是一个完整波长，那么信号通过Tag的天线进入标签再出来经过了一个完整的周期，可以认为相位不变；另一条路径的长度是半个波长，同理信号进入Tag再出来相位改变了180°，与原来的信号反向。相当于我们人为的将多径的长度差变成了一个波长。</p>
 <h2 id="WiFi-Tag调制的具体实现流程"><a href="#WiFi-Tag调制的具体实现流程" class="headerlink" title="WiFi Tag调制的具体实现流程"></a>WiFi Tag调制的具体实现流程</h2><p>假设我们的手机和WiFi路由器在进行数据交换，在一种理想的情况下我们的信号质量很好，没有丢包的情况。我们在中间加入WiFi Backscatter Tag，并且以10KHz的频率去切换开关。假设我们手机网卡发送子帧的速率也是10K个子帧每秒，那么我们可以假设在LOS（即前面说的直射路径）中传输的信号（调制了10K个子帧）的相位都是0°（相对的）。然后在有WiFi Tag的另一条路径，信号调制的10K个子帧有5K个相位为360°，有5K个相位为180°。相位为360°的跟LOS的信号叠加在一起由于同相，对原来的信号起到增强的作用，接收端全是1（参考基础知识1）而相位为180°的跟LOS的信号反向，叠加到一起刚好相互抵消了，那么接收端就是全0（理想情况）。那么我们就可以通过这个0、1之间的交替得出我们WiFi Tag要调制的信号，如下：</p>
-<p><img src="https://github.com/allforkarina/embadded_image/blob/master/20250406065816107.png?raw=true" srcset="/img/loading.gif" lazyload alt="Multiple Path"></p>
+<p><img src="https://github.com/allforkarina/embadded_image/blob/master/20250406065816107.png?raw=true" alt="Multiple Path"></p>
 <hr>
 <p>以下是，我们如何通过软件实现对上述流程的仿真以及体现。</p>
 <h2 id="Introduction-of-environment"><a href="#Introduction-of-environment" class="headerlink" title="Introduction of environment"></a>Introduction of environment</h2><p>In this section I will briefly give a introduction of the hardware requirement, software requirement and the system environment which we based on.</p>
@@ -334,346 +238,4 @@
 </ul>
 <h2 id="Process-of-experiment"><a href="#Process-of-experiment" class="headerlink" title="Process of experiment"></a>Process of experiment</h2><p>Let’s start from equiping your computer with necessary software. First thing is that you need an PC with a Ubuntu system at version 22.04. Then after your configuration of basic settings, you can start from ‘Pktgen’ which is already in your system software and all you need to do is activate it using your root privacy. The detail of the overall process please follow the blog: <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41596356/article/details/134004341">How to use Pktgen-powerful Wlan test tools</a>. Notice: once you reboot your system, you need to activate the Pktgen using root privacy again.</p>
 <p>Pktgen, used as packet genration and transmission tool, you can send packet which you configure. You then need a software to receive packet and evaluate the infomation of signal-channel through the packet you received. Here I recommend using wireshark to capture packet, and using PicoScenes to get CSI. The installation steps as followed.<br>For Wireshark, you can visit its <a target="_blank" rel="noopener" href="https://github.com/wireshark/wireshark">github repository</a> and paste the command at your terminal. The second one PicoScenes, you can download it following this <a target="_blank" rel="noopener" href="https://www.bing.com/search?form=QBLH&q=PicoScenes">blog</a>, or visit the <a target="_blank" rel="noopener" href="https://ps.zpj.io/">official docs</a> to get to know how to install, how to use it and what is the meaning of CSI values.</p>
-
-                
-              </div>
-            
-            <hr/>
-            <div>
-              <div class="post-metas my-3">
-  
-  
-</div>
-
-
-              
-  
-
-  <div class="license-box my-3">
-    <div class="license-title">
-      <div>Wi-Fi Backscatter communication</div>
-      <div>http://example.com/2025/03/18/research/Wi-Fi Backscatter communication/</div>
-    </div>
-    <div class="license-meta">
-      
-        <div class="license-meta-item">
-          <div>Author</div>
-          <div>Karina</div>
-        </div>
-      
-      
-        <div class="license-meta-item license-meta-date">
-          <div>Posted on</div>
-          <div>March 18, 2025</div>
-        </div>
-      
-      
-      
-        <div class="license-meta-item">
-          <div>Licensed under</div>
-          <div>
-            
-              
-              
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
-                    <i class="iconfont icon-cc-by"></i>
-                  </span>
-                </a>
-              
-            
-          </div>
-        </div>
-      
-    </div>
-    <div class="license-icon iconfont"></div>
-  </div>
-
-
-
-              
-                <div class="post-prevnext my-3">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2025/04/02/research/Knowing_5G/" title="初识无线通信——5G 信道估计">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">初识无线通信——5G 信道估计</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2025/03/18/etc/hello-world/" title="关于博客的那些事o.O">
-                        <span class="hidden-mobile">关于博客的那些事o.O</span>
-                        <span class="visible-mobile">Next</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-          </article>
-        </div>
-      </div>
-    </div>
-
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-  <aside class="sidebar" style="margin-left: -1rem">
-    <div id="toc">
-  <p class="toc-header">
-    <i class="iconfont icon-list"></i>
-    <span>Table of Contents</span>
-  </p>
-  <div class="toc-body" id="toc-body"></div>
-</div>
-
-
-
-  </aside>
-
-
-    </div>
-  </div>
-</div>
-
-
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-
-
-
-
-    
-
-    
-      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-    
-
-    
-  </main>
-
-  <footer>
-    <div class="footer-inner">
-  
-    <div class="footer-content">
-       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
-    </div>
-  
-  
-  
-</div>
-
-  </footer>
-
-  <!-- Scripts -->
-  
-  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
-    })
-  </script>
-
-
-<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
-<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
-
-
-  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var subtitle = document.getElementById('subtitle');
-      if (!subtitle || !typing) {
-        return;
-      }
-      var text = subtitle.getAttribute('data-typed-text');
-      
-        typing(text);
-      
-    })(window, document);
-  </script>
-
-
-
-
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
-
-
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
-    var toc = jQuery('#toc');
-    if (toc.length === 0 || !window.tocbot) { return; }
-    var boardCtn = jQuery('#board-ctn');
-    var boardTop = boardCtn.offset().top;
-
-    window.tocbot.init(Object.assign({
-      tocSelector     : '#toc-body',
-      contentSelector : '.markdown-body',
-      linkClass       : 'tocbot-link',
-      activeLinkClass : 'tocbot-active-link',
-      listClass       : 'tocbot-list',
-      isCollapsedClass: 'tocbot-is-collapsed',
-      collapsibleClass: 'tocbot-is-collapsible',
-      scrollSmooth    : true,
-      includeTitleTags: true,
-      headingsOffset  : -boardTop,
-    }, CONFIG.toc));
-    if (toc.find('.toc-list-item').length > 0) {
-      toc.css('visibility', 'visible');
-    }
-
-    Fluid.events.registerRefreshCallback(function() {
-      if ('tocbot' in window) {
-        tocbot.refresh();
-        var toc = jQuery('#toc');
-        if (toc.length === 0 || !tocbot) {
-          return;
-        }
-        if (toc.find('.toc-list-item').length > 0) {
-          toc.css('visibility', 'visible');
-        }
-      }
-    });
-  });
-</script>
-
-
-  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
-
-  <script>Fluid.plugins.codeWidget();</script>
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
-    window.anchors.options = {
-      placement: CONFIG.anchorjs.placement,
-      visible  : CONFIG.anchorjs.visible
-    };
-    if (CONFIG.anchorjs.icon) {
-      window.anchors.options.icon = CONFIG.anchorjs.icon;
-    }
-    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
-    var res = [];
-    for (var item of el) {
-      res.push('.markdown-body > ' + item.trim());
-    }
-    if (CONFIG.anchorjs.placement === 'left') {
-      window.anchors.options.class = 'anchorjs-link-left';
-    }
-    window.anchors.add(res.join(', '));
-
-    Fluid.events.registerRefreshCallback(function() {
-      if ('anchors' in window) {
-        anchors.removeAll();
-        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
-        var res = [];
-        for (var item of el) {
-          res.push('.markdown-body > ' + item.trim());
-        }
-        if (CONFIG.anchorjs.placement === 'left') {
-          anchors.options.class = 'anchorjs-link-left';
-        }
-        anchors.add(res.join(', '));
-      }
-    });
-  });
-</script>
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
-    Fluid.plugins.fancyBox();
-  });
-</script>
-
-
-  <script>Fluid.plugins.imageCaption();</script>
-
-  <script  src="/js/local-search.js" ></script>
-
-  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
-
-
-
-
-<!-- 主题的启动项，将它保持在最底部 -->
-<!-- the boot of the theme, keep it at the bottom -->
-<script  src="/js/boot.js" ></script>
-
-
-  
-
-  <noscript>
-    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
-  </noscript>
-</body>
-</html>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://uestc-xtkx.github.io">Karina</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://uestc-xtkx.github.io/2025/03/18/research/Wi-Fi%20Backscatter%20communication/">https://uestc-xtkx.github.io/2025/03/18/research/Wi-Fi%20Backscatter%20communication/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://uestc-xtkx.github.io" target="_blank">Katarina's diary</a>！</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/rich_man_karina_1.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/04/02/research/Knowing_5G/" title="初识无线通信——5G 信道估计"><img class="cover" src="/img/rich_man_karina_1.jpg" onerror="onerror=null;src='/img/default.png'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">初识无线通信——5G 信道估计</div></div><div class="info-2"><div class="info-item-1">什么是无线通信你在你的手机微信上编辑了一段文字，轻点发送，远在天边的亲朋好友便能够几乎瞬时的接收到你讯息，这固然很好。但是你是否想象过，这个传输的过程是如何实现的？可能你知道，手机向手机基站发送信息，然后基站之间再进行传输，最后由基站向手机对面的人发送消息。那么，现在请你抬头，看看你周围，你是否生活在“盘丝洞”之中。我相信正常的答案是否的（如果你说yes，那你很厉害哟），这就是我们所说的无线通信。这是一个堪称伟大的科技手段，要是信号都只能通过光纤、信号线传输，那我们就真的生活在盘丝洞之中了（!_!）我们现在常用的移动设备像手机、电脑、电视这些，都配备有天线，在基站安装这几十上百的天线构成阵列来接受我们向他发送的信息（后面统称为信号）。 那你可能会说，就这？你一根天线、我一根天线就能解决的事情，能称得上伟大？当然不是这么简单，你在生活中不难发现，向前推一辆车，过一会他就会自己停下来；向前说话，声音却像是从前面传来。这些说明两点：  日常生活中存在阻力，或者说衰减，空中传递的信号也不例外会受到衰减，导致从手机到基站的信号的质量往往不如手机端刚发出。 信号不是像一根线一样固定一个方向传...</div></div></div></a><a class="pagination-related" href="/2025/03/18/etc/hello-world/" title="关于博客的那些事o.O"><img class="cover" src="/img/rich_man_karina_1.jpg" onerror="onerror=null;src='/img/default.png'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">关于博客的那些事o.O</div></div><div class="info-2"><div class="info-item-1">Hexo 的使用指引Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new &quot;My New Post&quot;  More info: Writing Run server1$ hexo server  More info: Server Generate static files1$ hexo generate  More info: Generating Deploy to remote sites1$ hexo deploy  More info: Deployment 如何快速入门 MarkdownMarkdown，作为一种基于文本的快速格式化编写语法，...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/karina_avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Karina</div><div class="author-info-description">Love what you do, do what you love.</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">15</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">16</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/allforkarina/"><i class="fa-solid fa-blog"></i><span>My Home Page</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/allforkarina" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="https://allforkarina.github.io/" target="_blank" title="Blog"><i class="fas fa-blog" style="color: #4a7dbe;"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Abstract"><span class="toc-number">1.</span> <span class="toc-text">Abstract</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFWiFi%E5%8F%8D%E5%90%91%E6%95%A3%E5%B0%84%E7%B3%BB%E7%BB%9F%EF%BC%88WiFi-BackScatter-Communication-System%EF%BC%89"><span class="toc-number">2.</span> <span class="toc-text">什么是WiFi反向散射系统（WiFi BackScatter Communication System）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3WiFi-Backscatter%E6%89%80%E8%B0%93%E7%9A%84%E7%A0%B4%E5%9D%8F"><span class="toc-number">3.</span> <span class="toc-text">如何理解WiFi Backscatter所谓的破坏</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WiFi-Tag%E8%B0%83%E5%88%B6%E7%9A%84%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0%E6%B5%81%E7%A8%8B"><span class="toc-number">4.</span> <span class="toc-text">WiFi Tag调制的具体实现流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction-of-environment"><span class="toc-number">5.</span> <span class="toc-text">Introduction of environment</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Process-of-experiment"><span class="toc-number">6.</span> <span class="toc-text">Process of experiment</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/06/06/research/usrp_uhd_download/" title="基于Ubuntu22.04的UHD安装指引"><img src="/img/rich_man_karina_1.jpg" onerror="this.onerror=null;this.src='/img/default.png'" alt="基于Ubuntu22.04的UHD安装指引"/></a><div class="content"><a class="title" href="/2025/06/06/research/usrp_uhd_download/" title="基于Ubuntu22.04的UHD安装指引">基于Ubuntu22.04的UHD安装指引</a><time datetime="2025-06-06T13:00:00.000Z" title="发表于 2025-06-06 21:00:00">2025-06-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/06/01/study/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" title="人工智能基础复习笔记"><img src="/img/rich_man_karina_1.jpg" onerror="this.onerror=null;this.src='/img/default.png'" alt="人工智能基础复习笔记"/></a><div class="content"><a class="title" href="/2025/06/01/study/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" title="人工智能基础复习笔记">人工智能基础复习笔记</a><time datetime="2025-06-01T11:00:00.000Z" title="发表于 2025-06-01 19:00:00">2025-06-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/05/30/research/picoscenes_use_instruction/" title="PicoScenes学习日志"><img src="/img/rich_man_karina_1.jpg" onerror="this.onerror=null;this.src='/img/default.png'" alt="PicoScenes学习日志"/></a><div class="content"><a class="title" href="/2025/05/30/research/picoscenes_use_instruction/" title="PicoScenes学习日志">PicoScenes学习日志</a><time datetime="2025-05-30T09:00:00.000Z" title="发表于 2025-05-30 17:00:00">2025-05-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/05/29/study/Fisher/" title="Fisher——Fisher投影分类"><img src="/img/rich_man_karina_1.jpg" onerror="this.onerror=null;this.src='/img/default.png'" alt="Fisher——Fisher投影分类"/></a><div class="content"><a class="title" href="/2025/05/29/study/Fisher/" title="Fisher——Fisher投影分类">Fisher——Fisher投影分类</a><time datetime="2025-05-29T11:00:00.000Z" title="发表于 2025-05-29 19:00:00">2025-05-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/05/29/study/SVM/" title="SVM——Python代码实现以及解析"><img src="/img/rich_man_karina_1.jpg" onerror="this.onerror=null;this.src='/img/default.png'" alt="SVM——Python代码实现以及解析"/></a><div class="content"><a class="title" href="/2025/05/29/study/SVM/" title="SVM——Python代码实现以及解析">SVM——Python代码实现以及解析</a><time datetime="2025-05-29T11:00:00.000Z" title="发表于 2025-05-29 19:00:00">2025-05-29</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By Karina</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.3</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
